@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Web.Configuration;
 using Autofac;
 using DavidLievrouw.Utils;
+using DavidLievrouw.Utils.ForTesting.FakeItEasy;
 using DavidLievrouw.Voter.Api.Handlers;
 using DavidLievrouw.Voter.Api.Users.Models;
 using DavidLievrouw.Voter.Configuration;
@@ -19,17 +20,19 @@ using NUnit.Framework;
 namespace DavidLievrouw.Voter.Composition {
   [TestFixture]
   public class CompositionRootTests {
+    IPhysicalRootPathResolver _physicalRootPathResolver;
     IContainer _sut;
 
     [SetUp]
     public virtual void SetUp() {
+      _physicalRootPathResolver = _physicalRootPathResolver.Fake();
       var rootPathProvider = new VoterRootPathProvider();
       var webConfigFile = new FileInfo(Path.Combine(rootPathProvider.GetRootPath(), "web.config"));
       var virtualDirectoryMapping = new VirtualDirectoryMapping(webConfigFile.DirectoryName, true, webConfigFile.Name);
       var webConfigurationFileMap = new WebConfigurationFileMap();
       webConfigurationFileMap.VirtualDirectories.Add("/", virtualDirectoryMapping);
       var configuration = WebConfigurationManager.OpenMappedWebConfiguration(webConfigurationFileMap, "/");
-      _sut = CompositionRoot.Compose(configuration);
+      _sut = CompositionRoot.Compose(configuration, _physicalRootPathResolver);
     }
 
     [Test]

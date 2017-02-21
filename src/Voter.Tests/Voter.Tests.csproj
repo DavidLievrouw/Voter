@@ -107,6 +107,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App\Handlers\LoginViewModelHandlerTests.cs" />
+    <Compile Include="Composition\HttpRequestPhysicalRootPathResolverTests.cs" />
     <Compile Include="LightweightBootstrapper.cs" />
     <Compile Include="WebConfigLoaderForUnitTests.cs" />
     <Compile Include="Composition\AppSettingsReaderTests.cs" />

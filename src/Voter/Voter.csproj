@@ -131,9 +131,11 @@
     <Compile Include="App\Models\LoginViewModel.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Composition\AppSettingsReader.cs" />
+    <Compile Include="Composition\HttpRuntimePhysicalRootPathResolver.cs" />
     <Compile Include="Composition\IAppSettingsReader.cs" />
     <Compile Include="Composition\CompositionRoot.cs" />
     <Compile Include="Composition\DataModule.cs" />
+    <Compile Include="Composition\IPhysicalRootPathResolver.cs" />
     <Compile Include="Composition\NancyModule.cs" />
     <Compile Include="Composition\SecurityModule.cs" />
     <Compile Include="Configuration\CamelCaseAndSupportForPrivateSettersContractResolver.cs" />
@@ -187,6 +189,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Static\vote64.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

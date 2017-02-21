@@ -34,7 +34,7 @@ namespace DavidLievrouw.Voter.App {
         A.CallTo(() => _loginHandler.Handle()).Returns(model);
 
         var response = Get();
-        var body = response.BodyAsXml().ToString();
+
         var actualViewModel = response.GetModel<LoginViewModel>();
         actualViewModel.ShouldBeEquivalentTo(model);
       }
