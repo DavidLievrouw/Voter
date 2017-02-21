@@ -175,9 +175,7 @@
     <Compile Include="Security\UserFromSessionResolver.cs" />
     <Compile Include="Startup.cs" />
     <Content Include="App\Login\login.sshtml" />
-    <Content Include="ConnectionStrings.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="ConnectionStrings.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\DLVoter - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\DLVoter - Web Deploy.pubxml" />
