@@ -199,4 +199,5 @@ build/log
 build/target
 nunit-*.xml
 src/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.*
-*.mdb 
+*.mdb
+*.jfm

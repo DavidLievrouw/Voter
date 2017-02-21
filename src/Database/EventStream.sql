@@ -7,7 +7,7 @@
 	[EventData] [nvarchar](max) NOT NULL,
 	[UtcStoreTime] [datetimeoffset](7) NOT NULL, 
   CONSTRAINT [PK_EventStream] PRIMARY KEY ([RowNumber])
-)
+) ON [PRIMARY];
 
 GO
 

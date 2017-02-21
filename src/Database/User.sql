@@ -7,4 +7,4 @@
   [FirstName] NVARCHAR(50) NOT NULL, 
   [LastName] NVARCHAR(50) NOT NULL, 
   [LastNamePrefix] NVARCHAR(50) NULL
-)
+) ON [PRIMARY];
