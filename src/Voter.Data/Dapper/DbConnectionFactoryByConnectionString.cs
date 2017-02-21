@@ -10,7 +10,7 @@ namespace DavidLievrouw.Voter.Data.Dapper {
     readonly Lazy<DbProviderFactory> _dbProviderFactory;
 
     public DbConnectionFactoryByConnectionString(ConnectionStringSettings connectionStringSettings) {
-      if (connectionStringSettings == null) throw new ArgumentNullException("connectionStringSettings");
+      if (connectionStringSettings == null) throw new ArgumentNullException(nameof(connectionStringSettings));
       _connectionStringSettings = connectionStringSettings;
       _dbProviderFactory = new Lazy<DbProviderFactory>(() => DbProviderFactories.GetFactory(_connectionStringSettings.ProviderName));
     }

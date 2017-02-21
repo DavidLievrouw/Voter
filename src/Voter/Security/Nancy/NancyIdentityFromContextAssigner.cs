@@ -11,16 +11,16 @@ namespace DavidLievrouw.Voter.Security.Nancy {
       INancySessionFromNancyContextResolver nancySessionFromNancyContextResolver,
       IUserFromSessionResolver userFromSessionResolver,
       IVoterIdentityFactory voterIdentityFactory) {
-      if (nancySessionFromNancyContextResolver == null) throw new ArgumentNullException("nancySessionFromNancyContextResolver");
-      if (userFromSessionResolver == null) throw new ArgumentNullException("userFromSessionResolver");
-      if (voterIdentityFactory == null) throw new ArgumentNullException("voterIdentityFactory");
+      if (nancySessionFromNancyContextResolver == null) throw new ArgumentNullException(nameof(nancySessionFromNancyContextResolver));
+      if (userFromSessionResolver == null) throw new ArgumentNullException(nameof(userFromSessionResolver));
+      if (voterIdentityFactory == null) throw new ArgumentNullException(nameof(voterIdentityFactory));
       _nancySessionFromNancyContextResolver = nancySessionFromNancyContextResolver;
       _userFromSessionResolver = userFromSessionResolver;
       _voterIdentityFactory = voterIdentityFactory;
     }
 
     public void AssignNancyIdentityFromContext(NancyContext nancyContext) {
-      if (nancyContext == null) throw new ArgumentNullException("nancyContext");
+      if (nancyContext == null) throw new ArgumentNullException(nameof(nancyContext));
 
       var session = _nancySessionFromNancyContextResolver.ResolveSession(nancyContext);
       var userFromSession = _userFromSessionResolver.ResolveUser(session);

@@ -12,12 +12,12 @@ namespace DavidLievrouw.Voter.Data.Dapper {
     readonly CommandType? _commandType;
 
     public QueryExecutor(TConnectionFactory connectionFactory) {
-      if (connectionFactory == null) throw new ArgumentNullException("connectionFactory");
+      if (connectionFactory == null) throw new ArgumentNullException(nameof(connectionFactory));
       _connectionFactory = connectionFactory;
     }
 
     QueryExecutor(TConnectionFactory connectionFactory, string sql, object parameters, CommandType? commandType) : this(connectionFactory) {
-      if (string.IsNullOrWhiteSpace(sql)) throw new ArgumentNullException("sql");
+      if (string.IsNullOrWhiteSpace(sql)) throw new ArgumentNullException(nameof(sql));
       _sql = sql;
       _parameters = parameters;
       _commandType = commandType;

@@ -25,7 +25,7 @@ namespace DavidLievrouw.Voter.Configuration {
     }
 
     public T Deserialize<T>(string jsonString) {
-      if (jsonString == null) throw new ArgumentNullException("jsonString");
+      if (jsonString == null) throw new ArgumentNullException(nameof(jsonString));
       using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonString))) {
         using (var reader = new StreamReader(stream)) {
           using (var jsonReader = new JsonTextReader(reader)) {
@@ -44,8 +44,8 @@ namespace DavidLievrouw.Voter.Configuration {
     }
 
     public void Serialize<TModel>(string contentType, TModel model, Stream outputStream) {
-      if (contentType == null) throw new ArgumentNullException("contentType");
-      if (outputStream == null) throw new ArgumentNullException("outputStream");
+      if (contentType == null) throw new ArgumentNullException(nameof(contentType));
+      if (outputStream == null) throw new ArgumentNullException(nameof(outputStream));
       if (!CanSerialize(contentType))
         throw new SerializationException(string.Format("Content type '{0}' is not supported by this {1}.", contentType, GetType().Name));
 

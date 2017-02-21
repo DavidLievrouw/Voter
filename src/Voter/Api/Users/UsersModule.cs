@@ -13,10 +13,10 @@ namespace DavidLievrouw.Voter.Api.Users {
       IHandler<LoginRequest, bool> loginHandler,
       IHandler<LogoutRequest, bool> logoutHandler,
       INancySecurityContextFactory nancySecurityContextFactory) {
-      if (getCurrentUserHandler == null) throw new ArgumentNullException("getCurrentUserHandler");
-      if (loginHandler == null) throw new ArgumentNullException("loginHandler");
-      if (logoutHandler == null) throw new ArgumentNullException("logoutHandler");
-      if (nancySecurityContextFactory == null) throw new ArgumentNullException("nancySecurityContextFactory");
+      if (getCurrentUserHandler == null) throw new ArgumentNullException(nameof(getCurrentUserHandler));
+      if (loginHandler == null) throw new ArgumentNullException(nameof(loginHandler));
+      if (logoutHandler == null) throw new ArgumentNullException(nameof(logoutHandler));
+      if (nancySecurityContextFactory == null) throw new ArgumentNullException(nameof(nancySecurityContextFactory));
 
       Get["api/user", true] = async (parameters, cancellationToken) => {
         this.RequiresAuthentication();
