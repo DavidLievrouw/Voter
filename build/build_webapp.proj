@@ -30,11 +30,13 @@
   <Target Name="CacheBusting">
     <CreateItem Include="
          $(WebAppBuildDirectory)\**\*.html;
+         $(WebAppBuildDirectory)\**\*.sshtml;
          $(WebAppBuildDirectory)\**\*.css;
          $(WebAppBuildDirectory)\**\*.htm;">
       <Output TaskParameter="Include" ItemName="FilesToReplaceVersionForCacheBusting"/>
     </CreateItem>
     <FileUpdate Files="@(FilesToReplaceVersionForCacheBusting)"
+                Condition="'@(FilesToReplaceVersionForCacheBusting)'!=''"
                 Regex="__Automatic__File__Version__"
                 ReplacementText="$(ProductVersion)" />
   </Target>

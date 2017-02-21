@@ -7,5 +7,6 @@
 <body>
 <h1>Hello world!</h1>
 <p>Loaded from db: @Model.User.LastName @Model.User.FirstName (@Model.User.UniqueId)</p>
+<p>version __Automatic__File__Version__</p>
 </body>
 </html>

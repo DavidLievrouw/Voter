@@ -174,7 +174,7 @@
     <Compile Include="Security\Nancy\SessionHijacking\SecureSessionCookieReader.cs" />
     <Compile Include="Security\UserFromSessionResolver.cs" />
     <Compile Include="Startup.cs" />
-    <None Include="App\Login\login.sshtml" />
+    <Content Include="App\Login\login.sshtml" />
     <Content Include="ConnectionStrings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
