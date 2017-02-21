@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="CleanInstall" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <RootPath>$(MSBuildProjectDirectory)\..</RootPath>
+    <BuildDirectory>$(RootPath)\build</BuildDirectory>
+    <TargetDirectory>$(BuildDirectory)\target</TargetDirectory>
+    <DeploymentDirectory>$(TargetDirectory)\WebApp</DeploymentDirectory>
+    <PackagesPath>$(MSBuildProjectDirectory)\packages</PackagesPath>
+    <ExtensionTasksPath>$(PackagesPath)\MSBuild.Extension.Pack.1.8.0\build\net40</ExtensionTasksPath>
+    <CommunityTasksPath>$(PackagesPath)\MSBuildTasks.1.5.0.214\tools</CommunityTasksPath>
+    <VoterAppPoolName>VoterPool</VoterAppPoolName>
+  </PropertyGroup>
+  <Import Project="$(ExtensionTasksPath)\MSBuild.Extension.Pack.targets"/>
+  <Import Project="$(CommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
+  
+  <ItemGroup>
+    <VoterIisApplication Include="/Voter">
+      <PhysicalPath>$(DeploymentDirectory)</PhysicalPath>
+      <AppPool>$(VoterAppPoolName)</AppPool>
+    </VoterIisApplication>
+  </ItemGroup>
+
+  <Target Name="CleanInstall" DependsOnTargets="Uninstall;Install" />
+  
+  <Target Name="Uninstall">
+    <CallTarget ContinueOnError="false" Targets="UninstallOnIis"/>
+  </Target>
+  <Target Name="UninstallOnIis">
+    <MSBuild.ExtensionPack.Web.Iis7AppPool Name="$(VoterAppPoolName)" TaskAction="CheckExists">
+      <Output PropertyName="VoterAppPoolExists" TaskParameter="Exists"/>
+    </MSBuild.ExtensionPack.Web.Iis7AppPool>
+    <MSBuild.ExtensionPack.Web.Iis7AppPool Condition="$(VoterAppPoolExists) == 'True'" Name="$(VoterAppPoolName)" TaskAction="Delete"/>
+    <MSBuild.ExtensionPack.Web.Iis7Application Applications="@(VoterIisApplication)" TaskAction="CheckExists" Website="Default Web Site">
+      <Output PropertyName="VoterIisApplicationExists" TaskParameter="Exists"/>
+    </MSBuild.ExtensionPack.Web.Iis7Application>
+    <MSBuild.ExtensionPack.Web.Iis7Application Applications="@(VoterIisApplication)" Condition="$(VoterIisApplicationExists) == 'True'" TaskAction="Delete" Website="Default Web Site"/>
+  </Target>
+
+  <Target Name="Install">
+    <CallTarget ContinueOnError="false" Targets="InstallOnIis"/>
+  </Target>
+  <Target Name="InstallOnIis">
+    <MSBuild.ExtensionPack.Web.Iis7AppPool Enable32BitAppOnWin64="False" IdentityType="NetworkService" IdleTimeout="1440" ManagedRuntimeVersion="v4.0" Name="$(VoterAppPoolName)" PeriodicRestartTime="10080" TaskAction="Create"/>
+    <MSBuild.ExtensionPack.Web.Iis7Website Applications="@(VoterIisApplication)" Name="Default Web Site" TaskAction="AddApplication"/>
+  </Target>
+</Project>
