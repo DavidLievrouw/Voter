@@ -196,7 +196,8 @@ FakesAssemblies/
 
 # Custom additions
 build/log
-build/target
+build/build-output
+build/deploy-output
 nunit-*.xml
 src/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.*
 *.mdb

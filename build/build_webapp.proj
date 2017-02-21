@@ -2,37 +2,31 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <RootPath>$(MSBuildProjectDirectory)\..</RootPath>
-    <SourceDirectory>$(RootPath)\src</SourceDirectory>
     <PackagesDirectory>$(MSBuildProjectDirectory)\packages</PackagesDirectory>
-	<MSBuildCommunityTasksPath>$(PackagesDirectory)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
-	<Configuration Condition="'$(Configuration)'==''">Release</Configuration>
-	<ProductVersion Condition="'$(ProductVersion)'==''">1.0.0</ProductVersion>
-	<WebAppBuildDirectory>$(SourceDirectory)\Voter\obj\$(Configuration)\Package\PackageTmp</WebAppBuildDirectory>
+    <SourceDirectory>$(RootPath)\src</SourceDirectory>	
+	<BuildConfiguration Condition="'$(BuildConfiguration)'==''">Release</BuildConfiguration>
+	<BuildOutputDirectory Condition="'$(BuildOutputDirectory)'==''">$(SourceDirectory)\Voter\obj\$(Configuration)\Package\PackageTmp</BuildOutputDirectory>
 	<VisualStudioVersion Condition="'$(VisualStudioVersion)'==''">14.0</VisualStudioVersion>
+    <MSBuildCommunityTasksDirectory>$(PackagesDirectory)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksDirectory>
   </PropertyGroup>
-  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
+  <Import Project="$(MSBuildCommunityTasksDirectory)\MSBuild.Community.Tasks.targets"/>
   
-  <Target Name="Clean">
-	<RemoveDir ContinueOnError="false"
-		   Directories="$(WebAppBuildDirectory)"
-		   Condition="Exists('$(WebAppBuildDirectory)')" />
-  </Target>
-  
-  <Target Name="Build" DependsOnTargets="Clean">
+  <Target Name="Build">
     <MSBuild Projects="$(SourceDirectory)\Voter\Voter.csproj"
 	         Targets="Package"
 			 StopOnFirstFailure="true"
-			 Properties="Configuration=$(Configuration);VisualStudioVersion=$(VisualStudioVersion)" />
+			 BuildInParallel="true"
+			 Properties="Configuration=$(Configuration);VisualStudioVersion=$(VisualStudioVersion);OutputPath=$(BuildOutputDirectory);AutoParameterizationWebConfigConnectionStrings=False;" />
 
     <CallTarget Targets="CacheBusting" />
   </Target>
   
   <Target Name="CacheBusting">
     <CreateItem Include="
-         $(WebAppBuildDirectory)\**\*.html;
-         $(WebAppBuildDirectory)\**\*.sshtml;
-         $(WebAppBuildDirectory)\**\*.css;
-         $(WebAppBuildDirectory)\**\*.htm;">
+         $(BuildOutputDirectory)\**\*.html;
+         $(BuildOutputDirectory)\**\*.sshtml;
+         $(BuildOutputDirectory)\**\*.css;
+         $(BuildOutputDirectory)\**\*.htm;">
       <Output TaskParameter="Include" ItemName="FilesToReplaceVersionForCacheBusting"/>
     </CreateItem>
     <FileUpdate Files="@(FilesToReplaceVersionForCacheBusting)"

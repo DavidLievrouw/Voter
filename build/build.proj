@@ -2,18 +2,17 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <RootPath>$(MSBuildProjectDirectory)\..</RootPath>
-    <SourceDirectory>$(RootPath)\src</SourceDirectory>
     <PackagesDirectory>$(MSBuildProjectDirectory)\packages</PackagesDirectory>
-    <MSBuildCommunityTasksPath>$(PackagesDirectory)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
-    <ExtensionTasksPath>$(PackagesDirectory)\MSBuild.Extension.Pack.1.8.0\build\net40\</ExtensionTasksPath>
+    <SourceDirectory>$(RootPath)\src</SourceDirectory>
+    <BuildDirectory>$(RootPath)\build</BuildDirectory>
+    <BuildOutputDirectory>$(BuildDirectory)\build-output</BuildOutputDirectory>
+    <MSBuildCommunityTasksDirectory>$(PackagesDirectory)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksDirectory>
+    <ExtensionTasksDirectory>$(PackagesDirectory)\MSBuild.Extension.Pack.1.8.0\build\net40\</ExtensionTasksDirectory>
 	<ProductName Condition="'$(ProductName)'==''">Voter</ProductName>
+    <BuildConfiguration Condition="'$(BuildConfiguration)'==''">Release</BuildConfiguration>
   </PropertyGroup>
-  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
-  <Import Project="$(ExtensionTasksPath)\MSBuild.Extension.Pack.targets"/>
-
-  <PropertyGroup Condition="'$(BuildConfiguration)' == ''">
-    <BuildConfiguration>Release</BuildConfiguration>
-  </PropertyGroup>
+  <Import Project="$(MSBuildCommunityTasksDirectory)\MSBuild.Community.Tasks.targets"/>
+  <Import Project="$(ExtensionTasksDirectory)\MSBuild.Extension.Pack.targets"/>
   
   <Target Name="SetVisualStudioVersion">
     <PropertyGroup>
@@ -32,8 +31,17 @@
        <ProductVersion Condition="'$(ProductVersion)'==''">$(ProductVersionPrefix).0</ProductVersion>
     </PropertyGroup>
   </Target>
+  
+  <Target Name="Clean">
+    <RemoveDir ContinueOnError="false"
+               Directories="$(BuildOutputDirectory)"
+               Condition="Exists('$(BuildOutputDirectory)')" />
 
-  <Target Name="Build" DependsOnTargets="SetVisualStudioVersion;InitVersion">
+    <MakeDir ContinueOnError="false"
+             Directories="$(BuildOutputDirectory)" />
+  </Target>
+    
+  <Target Name="WriteAssemblyInfo">
     <Time>
       <Output TaskParameter="Year" PropertyName="Year" />
     </Time>
@@ -51,11 +59,13 @@
 				  CLSCompliant="false"
 				  ComVisible="false"
 				  AssemblyDelaySign="false" />
-	
+  </Target>
+  
+  <Target Name="Build" DependsOnTargets="Clean;SetVisualStudioVersion;InitVersion;WriteAssemblyInfo;">
     <MSBuild Projects="$(MSBuildProjectDirectory)\build_webapp.proj;"
-             Properties="Configuration=$(BuildConfiguration);ProductVersion=$(ProductVersion);VisualStudioVersion=$(VisualStudioVersion);"
+             Properties="Configuration=$(BuildConfiguration);ProductVersion=$(ProductVersion);VisualStudioVersion=$(VisualStudioVersion);BuildOutputDirectory=$(BuildOutputDirectory)\WebApp;"
 			 StopOnFirstFailure="true"
 			 Targets="Build"
-			 BuildInParallel="false"/>
+			 BuildInParallel="true"/>
   </Target>
 </Project>

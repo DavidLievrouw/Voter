@@ -3,20 +3,21 @@
   <PropertyGroup>
     <RootPath>$(MSBuildProjectDirectory)\..</RootPath>
     <BuildDirectory>$(RootPath)\build</BuildDirectory>
-    <TargetDirectory>$(BuildDirectory)\target</TargetDirectory>
+    <BuildOutputDirectory>$(BuildDirectory)\build-output</BuildOutputDirectory>
+    <DeployTargetDirectory>$(BuildDirectory)\deploy-output</DeployTargetDirectory>
   </PropertyGroup>
   
   <Target Name="InitDeploy">
 	<RemoveDir ContinueOnError="false"
-			   Directories="$(TargetDirectory)"
-			   Condition="Exists('$(TargetDirectory)')" />
+			   Directories="$(DeployTargetDirectory)"
+			   Condition="Exists('$(DeployTargetDirectory)')" />
   </Target>
 
   <Target Name="Deploy" DependsOnTargets="InitDeploy">
     <MSBuild Projects="$(MSBuildProjectDirectory)\deploy_webapp.proj;"
-             Properties="BuildDirectory=$(BuildDirectory);TargetDirectory=$(TargetDirectory);"
+             Properties="DeployTargetDirectory=$(DeployTargetDirectory)\WebApp;BuildOutputDirectory=$(BuildOutputDirectory);"
 			 StopOnFirstFailure="true"
 			 Targets="Deploy"
-			 BuildInParallel="false"/>
+			 BuildInParallel="true" />
   </Target>
 </Project>
