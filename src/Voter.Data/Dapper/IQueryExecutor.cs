@@ -4,12 +4,12 @@ using System.Data;
 using System.Threading.Tasks;
 
 namespace DavidLievrouw.Voter.Data.Dapper {
-  public interface IQueryExecutor<TConnectionFactory> where TConnectionFactory : IDbConnectionFactory {
-    IQueryExecutor<TConnectionFactory> NewQuery(string sql);
+  public interface IQueryExecutor {
+    IQueryExecutor NewQuery(string sql);
 
-    IQueryExecutor<TConnectionFactory> WithParameters(object parameters);
-    IQueryExecutor<TConnectionFactory> WithParameters(IEnumerable<KeyValuePair<string, object>> parameters);
-    IQueryExecutor<TConnectionFactory> WithCommandType(CommandType commandType);
+    IQueryExecutor WithParameters(object parameters);
+    IQueryExecutor WithParameters(IEnumerable<KeyValuePair<string, object>> parameters);
+    IQueryExecutor WithCommandType(CommandType commandType);
 
     IEnumerable<TResult> Execute<TResult>();
     TResult ExecuteScalar<TResult>();

@@ -15,7 +15,7 @@ using NUnit.Framework;
 namespace DavidLievrouw.Voter.Api.Users {
   [TestFixture]
   public partial class UsersModuleTests {
-    ApiBootstrapper _bootstrapper;
+    AppBootstrapper _bootstrapper;
     IHandler<GetCurrentUserRequest, User> _getCurrentUserHandler;
     IHandler<LoginRequest, bool> _loginHandler;
     IHandler<LogoutRequest, bool> _logoutHandler;
@@ -31,14 +31,14 @@ namespace DavidLievrouw.Voter.Api.Users {
       _logoutHandler = _logoutHandler.Fake();
       _nancySecurityContextFactory = _nancySecurityContextFactory.Fake();
       _sut = new UsersModule(_getCurrentUserHandler, _loginHandler, _logoutHandler, _nancySecurityContextFactory);
-      _bootstrapper = new ApiBootstrapper(with => {
+      _bootstrapper = new AppBootstrapper(with => {
         with.Module(_sut);
         with.RootPathProvider(new VoterRootPathProvider());
       });
       _browser = new Browser(_bootstrapper, to => to.Accept(new MediaRange("application/json")));
 
       _authenticatedUser = new User {
-        GivenName = "John",
+        FirstName = "John",
         LastName = "Doe",
         Login = new Login {Value = "JDoe"},
         Password = new Password {
@@ -48,9 +48,12 @@ namespace DavidLievrouw.Voter.Api.Users {
       };
     }
 
-    [Test]
-    public void ConstuctorTests() {
-      Assert.That(_sut.NoDependenciesAreOptional());
+    [TestFixture]
+    public class Construction : UsersModuleTests {
+      [Test]
+      public void ConstuctorTests() {
+        Assert.That(_sut.NoDependenciesAreOptional());
+      }
     }
 
     void ConfigureSecurityContextFactory_ToReturn(ISecurityContext securityContext) {

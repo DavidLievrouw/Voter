@@ -8,7 +8,7 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
     public Task<bool> Handle(LoginRequest request) {
       // Authorise user: ToDo
       var user = new User {
-        GivenName = "John",
+        FirstName = "John",
         LastName = "Doe",
         Login = new Login {Value = "JDoe"},
         Password = new Password {

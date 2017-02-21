@@ -5,33 +5,33 @@ using System.Threading.Tasks;
 using Dapper;
 
 namespace DavidLievrouw.Voter.Data.Dapper {
-  public class QueryExecutor<TConnectionFactory> : IQueryExecutor<TConnectionFactory> where TConnectionFactory : IDbConnectionFactory {
-    readonly TConnectionFactory _connectionFactory;
+  public class QueryExecutor : IQueryExecutor {
+    readonly IDbConnectionFactory _connectionFactory;
     readonly string _sql;
     readonly object _parameters;
     readonly CommandType? _commandType;
 
-    public QueryExecutor(TConnectionFactory connectionFactory) {
+    public QueryExecutor(IDbConnectionFactory connectionFactory) {
       if (connectionFactory == null) throw new ArgumentNullException(nameof(connectionFactory));
       _connectionFactory = connectionFactory;
     }
 
-    QueryExecutor(TConnectionFactory connectionFactory, string sql, object parameters, CommandType? commandType) : this(connectionFactory) {
+    QueryExecutor(IDbConnectionFactory connectionFactory, string sql, object parameters, CommandType? commandType) : this(connectionFactory) {
       if (string.IsNullOrWhiteSpace(sql)) throw new ArgumentNullException(nameof(sql));
       _sql = sql;
       _parameters = parameters;
       _commandType = commandType;
     }
 
-    public IQueryExecutor<TConnectionFactory> NewQuery(string sql) {
-      return new QueryExecutor<TConnectionFactory>(_connectionFactory, sql, null, null);
+    public IQueryExecutor NewQuery(string sql) {
+      return new QueryExecutor(_connectionFactory, sql, null, null);
     }
 
-    public IQueryExecutor<TConnectionFactory> WithParameters(object parameters) {
-      return new QueryExecutor<TConnectionFactory>(_connectionFactory, _sql, parameters, _commandType);
+    public IQueryExecutor WithParameters(object parameters) {
+      return new QueryExecutor(_connectionFactory, _sql, parameters, _commandType);
     }
 
-    public IQueryExecutor<TConnectionFactory> WithParameters(IEnumerable<KeyValuePair<string, object>> parameters) {
+    public IQueryExecutor WithParameters(IEnumerable<KeyValuePair<string, object>> parameters) {
       var dynamicParameters = new DynamicParameters();
       foreach (var entry in parameters) {
         dynamicParameters.Add(entry.Key, entry.Value);
@@ -39,8 +39,8 @@ namespace DavidLievrouw.Voter.Data.Dapper {
       return WithParameters(dynamicParameters);
     }
 
-    public IQueryExecutor<TConnectionFactory> WithCommandType(CommandType commandType) {
-      return new QueryExecutor<TConnectionFactory>(_connectionFactory, _sql, _parameters, commandType);
+    public IQueryExecutor WithCommandType(CommandType commandType) {
+      return new QueryExecutor(_connectionFactory, _sql, _parameters, commandType);
     }
 
     public IEnumerable<TResult> Execute<TResult>() {

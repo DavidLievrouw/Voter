@@ -16,8 +16,11 @@ namespace DavidLievrouw.Voter.Composition {
 
       var voterDbConnectionString = _appSettingsReader.ReadConnectionString("Voter");
 
-      builder.Register<IDbConnectionFactory>(context => new DbConnectionFactoryByConnectionString(voterDbConnectionString));
-      builder.RegisterGeneric(typeof(QueryExecutor<>)).As(typeof(IQueryExecutor<>));
+      builder.Register<IDbConnectionFactory>(context => new DbConnectionFactoryByConnectionString(voterDbConnectionString))
+             .SingleInstance();
+      builder.RegisterType<QueryExecutor>()
+             .AsImplementedInterfaces()
+             .InstancePerDependency();
     }
   }
 }

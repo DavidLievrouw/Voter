@@ -1,4 +1,7 @@
-﻿using DavidLievrouw.Utils.ForTesting.DotNet;
+﻿using DavidLievrouw.Utils;
+using DavidLievrouw.Utils.ForTesting.DotNet;
+using DavidLievrouw.Utils.ForTesting.FakeItEasy;
+using DavidLievrouw.Voter.App.Models;
 using DavidLievrouw.Voter.Configuration;
 using Nancy.Responses.Negotiation;
 using Nancy.Testing;
@@ -10,21 +13,27 @@ namespace DavidLievrouw.Voter.App {
     AppModule _sut;
     Browser _browser;
     AppBootstrapper _bootstrapper;
+    IHandler<LoginViewModel> _loginHandler;
 
     [SetUp]
     public virtual void SetUp() {
-      _sut = new AppModule();
+      _loginHandler = _loginHandler.Fake();
+      _sut = new AppModule(_loginHandler);
       _bootstrapper = new AppBootstrapper(
         with => {
           with.Module(_sut);
           with.RootPathProvider(new VoterRootPathProvider());
-        });
+        },
+        enableViewSupportWhichMakesTheUnitTestsReallySlow: true);
       _browser = new Browser(_bootstrapper, to => to.Accept(new MediaRange("text/html")));
     }
 
-    [Test]
-    public void ConstructorTests() {
-      Assert.That(_sut.NoDependenciesAreOptional());
+    [TestFixture]
+    public class MethodName : AppModuleTests {
+      [Test]
+      public void ConstructorTests() {
+        Assert.That(_sut.NoDependenciesAreOptional());
+      }
     }
   }
 }

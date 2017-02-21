@@ -7,7 +7,7 @@ using Nancy.Culture;
 using Nancy.Testing;
 using Nancy.ViewEngines;
 
-namespace DavidLievrouw.Voter.Api {
+namespace DavidLievrouw.Voter {
   /// <summary>
   ///   Bootstrapper that specifies settings so that the unit tests run much faster.
   /// </summary>
@@ -18,7 +18,7 @@ namespace DavidLievrouw.Voter.Api {
       with.ViewLocationProvider<NoopViewLocatorProvider>();
       with.CultureService<NoopCultureService>();
       configuration(with);
-    }) { }
+    }) {}
 
     protected override byte[] FavIcon => null;
 
