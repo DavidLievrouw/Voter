@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Static\vote64.png" />
+    <Content Include="Static\vote96.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
