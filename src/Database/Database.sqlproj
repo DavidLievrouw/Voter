@@ -65,11 +65,11 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Version.sql" />
+    <Build Include="dbo.Version.sql" />
     <Build Include="security.sql" />
-    <Build Include="User.sql" />
+    <Build Include="security.User.sql" />
     <Build Include="eventstore.sql" />
-    <Build Include="EventStream.sql" />
+    <Build Include="eventstore.EventStream.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
