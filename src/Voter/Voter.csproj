@@ -128,7 +128,10 @@
     <Compile Include="Api\Users\UsersModule.cs" />
     <Compile Include="App\AppModule.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Composition\AppSettingsReader.cs" />
+    <Compile Include="Composition\IAppSettingsReader.cs" />
     <Compile Include="Composition\CompositionRoot.cs" />
+    <Compile Include="Composition\DataModule.cs" />
     <Compile Include="Composition\NancyModule.cs" />
     <Compile Include="Composition\SecurityModule.cs" />
     <Compile Include="Configuration\CamelCaseAndSupportForPrivateSettersContractResolver.cs" />

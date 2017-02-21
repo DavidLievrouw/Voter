@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Web.Configuration;
 using Autofac;
 using DavidLievrouw.Utils;
@@ -10,6 +12,7 @@ using DavidLievrouw.Voter.Domain.DTO;
 using DavidLievrouw.Voter.Security;
 using DavidLievrouw.Voter.Security.Nancy;
 using DavidLievrouw.Voter.Security.Nancy.SessionHijacking;
+using Nancy;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -27,6 +30,26 @@ namespace DavidLievrouw.Voter.Composition {
       webConfigurationFileMap.VirtualDirectories.Add("/", virtualDirectoryMapping);
       var configuration = WebConfigurationManager.OpenMappedWebConfiguration(webConfigurationFileMap, "/");
       _sut = CompositionRoot.Compose(configuration);
+    }
+
+    [Test]
+    public void CanRegisterAllNancyFxModules() {
+      var apiAssembly = typeof(Startup).Assembly;
+      var nancyModules = apiAssembly.GetTypes()
+                                    .Where(t => t.IsAssignableTo<INancyModule>())
+                                    .Where(t => t.IsClass && !t.IsAbstract);
+
+      var nancyModuleDependencies = nancyModules.SelectMany(nancyModule => {
+        var ctor = nancyModule.GetConstructors(BindingFlags.Public | BindingFlags.Instance).SingleOrDefault();
+        return ctor?.GetParameters() ?? new ParameterInfo[0];
+      });
+
+      nancyModuleDependencies.ForEach(nancyModuleDependency => {
+        object actualResult = null;
+        Assert.DoesNotThrow(() => actualResult = _sut.Resolve(nancyModuleDependency.ParameterType));
+        Assert.That(actualResult, Is.Not.Null);
+        Assert.That(actualResult, Is.AssignableTo(nancyModuleDependency.ParameterType));
+      });
     }
 
     [TestCase(typeof(IUserFromSessionResolver))]

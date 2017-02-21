@@ -11,6 +11,7 @@ namespace DavidLievrouw.Voter.Composition {
 
     public static IContainer Compose(System.Configuration.Configuration configuration) {
       var builder = new ContainerBuilder();
+      var appSettingsReader = new AppSettingsReader(configuration);
 
       builder.RegisterType<CustomJsonSerializer>()
              .As<JsonSerializer>()
@@ -19,6 +20,7 @@ namespace DavidLievrouw.Voter.Composition {
 
       builder.RegisterModule<SecurityModule>();
       builder.RegisterModule<NancyModule>();
+      builder.RegisterModule(new DataModule(appSettingsReader));
 
       return builder.Build();
     }
