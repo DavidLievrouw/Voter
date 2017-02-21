@@ -1,36 +1,21 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using DavidLievrouw.Utils;
 using DavidLievrouw.Voter.App.Models;
-using DavidLievrouw.Voter.Data.Dapper;
+using DavidLievrouw.Voter.Data;
 using DavidLievrouw.Voter.Domain.DTO;
 
 namespace DavidLievrouw.Voter.App.Handlers {
   public class LoginViewModelHandler : IHandler<LoginViewModel> {
-    readonly IQueryExecutor _queryExecutor;
+    readonly IUserDataService _userDataService;
 
-    public LoginViewModelHandler(IQueryExecutor queryExecutor) {
-      if (queryExecutor == null) throw new ArgumentNullException(nameof(queryExecutor));
-      _queryExecutor = queryExecutor;
+    public LoginViewModelHandler(IUserDataService userDataService) {
+      if (userDataService == null) throw new ArgumentNullException(nameof(userDataService));
+      _userDataService = userDataService;
     }
 
     public async Task<LoginViewModel> Handle() {
-      var dataSourceResult = (await _queryExecutor
-        .NewQuery("SELECT * FROM [security].[User] WHERE [UniqueId]=@UniqueId;")
-        .WithParameters(new {
-          UniqueId = Guid.Parse("85BCCB04-901C-407F-9C3B-6B91A955D42B")
-        })
-        .ExecuteWithAnonymousResultAsync(new {
-          FirstName = (string)null,
-          LastName = (string)null,
-          LastNamePrefix = (string)null,
-          Login = (string)null,
-          Password = (string)null,
-          Salt = (string)null,
-          UniqueId = Guid.Empty
-        }))
-        .Single();
+      var dataSourceResult = await _userDataService.GetUserById(Guid.Parse("85BCCB04-901C-407F-9C3B-6B91A955D42B"));
 
       return new LoginViewModel {
         User = new User {
@@ -43,5 +28,7 @@ namespace DavidLievrouw.Voter.App.Handlers {
         }
       };
     }
+
+
   }
 }

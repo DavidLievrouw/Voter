@@ -14,11 +14,19 @@ namespace DavidLievrouw.Voter.Composition {
     protected override void Load(ContainerBuilder builder) {
       base.Load(builder);
 
+      var dataAssembly = typeof(IDbConnectionFactory).Assembly;
+
       var voterDbConnectionString = _appSettingsReader.ReadConnectionString("Voter");
 
       builder.Register<IDbConnectionFactory>(context => new DbConnectionFactoryByConnectionString(voterDbConnectionString))
              .SingleInstance();
       builder.RegisterType<QueryExecutor>()
+             .AsImplementedInterfaces()
+             .InstancePerDependency();
+
+      builder.RegisterAssemblyTypes(dataAssembly)
+             .Where(t => t.IsPublic && !t.IsAbstract && t.IsClass)
+             .Where(t => t.Name.EndsWith("DataService"))
              .AsImplementedInterfaces()
              .InstancePerDependency();
     }

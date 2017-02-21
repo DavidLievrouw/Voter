@@ -52,6 +52,9 @@
     <Compile Include="Dapper\IDbConnectionFactory.cs" />
     <Compile Include="Dapper\IQueryExecutor.cs" />
     <Compile Include="Dapper\QueryExecutor.cs" />
+    <Compile Include="IUserDataService.cs" />
+    <Compile Include="Records\UserRecord.cs" />
+    <Compile Include="UserDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Voter.Common\Voter.Common.csproj">
