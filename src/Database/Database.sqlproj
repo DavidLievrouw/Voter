@@ -63,18 +63,23 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Create" />
+    <Folder Include="Create\Schemas" />
+    <Folder Include="Create\Tables" />
+    <Folder Include="Create\Data" />
+    <Folder Include="Update" />
+    <Folder Include="Update\v0002" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo.Version.sql" />
-    <Build Include="security.sql" />
-    <Build Include="security.User.sql" />
-    <Build Include="eventstore.sql" />
-    <Build Include="eventstore.EventStream.sql" />
+    <Build Include="Create\Schemas\eventstore.sql" />
+    <Build Include="Create\Schemas\security.sql" />
+    <Build Include="Create\Tables\dbo.Version.sql" />
+    <None Include="Create\Data\InitialLoad.sql" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="Database.refactorlog" />
+    <Build Include="Create\Tables\eventstore.EventStream.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="InitialLoad.sql" />
+    <Build Include="Create\Tables\security.User.sql" />
   </ItemGroup>
 </Project>
