@@ -68,4 +68,7 @@
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="InitialLoad.sql" />
+  </ItemGroup>
 </Project>
