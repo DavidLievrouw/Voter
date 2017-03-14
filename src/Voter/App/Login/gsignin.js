@@ -38,9 +38,7 @@ var helper = (function () {
         type: 'POST',
         url: absoluteUrl,
         contentType: 'application/octet-stream; charset=utf-8',
-        success: function () {
-          onSignInCallback(auth2.currentUser.get().getAuthResponse());
-        },
+        success: function () {},
         processData: false,
         data: code
       });
@@ -57,9 +55,6 @@ function startApp() {
       scope: 'https://www.googleapis.com/auth/plus.login'
     }).then(function () {
       auth2 = gapi.auth2.getAuthInstance();
-      auth2.then(function () {
-        onSignInCallback(auth2.currentUser.get().getAuthResponse());
-      });
     });
   });
 
