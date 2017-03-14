@@ -47,6 +47,7 @@
     <Compile Include="DTO\ExternalCorrelationId.cs" />
     <Compile Include="DTO\Login.cs" />
     <Compile Include="DTO\Password.cs" />
+    <Compile Include="DTO\OAuthToken.cs" />
     <Compile Include="DTO\User.cs" />
     <Compile Include="DTO\UserType.cs" />
   </ItemGroup>

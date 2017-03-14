@@ -33,6 +33,7 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
         ExternalCorrelationId = new ExternalCorrelationId {Value = gResponse.Id},
         Type = UserType.GooglePlus
       };
+      user.OAuthToken = new OAuthToken { Value = request.AccessToken };
 
       request.SecurityContext.SetAuthenticatedUser(user);
       return true;

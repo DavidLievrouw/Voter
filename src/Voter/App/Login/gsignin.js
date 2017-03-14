@@ -59,7 +59,7 @@ function startApp() {
   });
 
   gapi.signin2.render("googleSignInButton", {
-    width: 200,
+    width: 300,
     height: 50,
     longtitle: true,
     theme: 'dark',
@@ -68,6 +68,7 @@ function startApp() {
   });
 }
 
+// Comment to make the app NOT sign in immediately when opening page, when you are logged in at Google with your browser
 function signInClick() {
   auth2.grantOfflineAccess().then(
     function (result) {

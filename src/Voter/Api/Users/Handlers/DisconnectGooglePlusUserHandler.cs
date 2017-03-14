@@ -11,9 +11,8 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
       // Get rid of the token, if there is one
       var user = request.SecurityContext.GetAuthenticatedUser();
       if (user.Type == UserType.GooglePlus) {
-        var token = user.Environment.Get<TokenResponse>("GoogleToken");
-        if (token != null) {
-          var tokenToRevoke = token.RefreshToken ?? token.AccessToken;
+        var tokenToRevoke = user.OAuthToken?.Value;
+        if (tokenToRevoke != null) {
           var webRequest = WebRequest.Create("https://accounts.google.com/o/oauth2/revoke?token=" + tokenToRevoke);
           webRequest.GetResponse();
         }

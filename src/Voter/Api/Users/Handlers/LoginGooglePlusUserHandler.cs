@@ -56,7 +56,7 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
         ExternalCorrelationId = new ExternalCorrelationId {Value = info.UserId},
         Type = UserType.GooglePlus
       };
-      user.Environment["GoogleToken"] = token;
+      user.OAuthToken = new OAuthToken {Value = token?.RefreshToken ?? token?.AccessToken};
 
       request.SecurityContext.SetAuthenticatedUser(user);
 
