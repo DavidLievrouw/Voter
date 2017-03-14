@@ -6,5 +6,7 @@
   [Salt] NVARCHAR(1000) NOT NULL, 
   [FirstName] NVARCHAR(50) NOT NULL, 
   [LastName] NVARCHAR(50) NOT NULL, 
-  [LastNamePrefix] NVARCHAR(50) NULL
+  [LastNamePrefix] NVARCHAR(50) NULL, 
+  [ExternalType] NCHAR(1) NULL, 
+  [ExternalCorrelationId] NVARCHAR(50) NULL
 ) ON [PRIMARY];
