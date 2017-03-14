@@ -28,7 +28,7 @@ var helper = (function () {
           contentType: 'application/octet-stream; charset=utf-8',
           success: function (result) {
             console.log(result);
-            gapi.client.load('plus', 'v1', this.renderProfile);
+            window.location.assign(urlService.getAbsoluteUrl('dashboard'));
           },
           processData: false,
           data: authResult['access_token']
