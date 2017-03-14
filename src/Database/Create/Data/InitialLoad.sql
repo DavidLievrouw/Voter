@@ -1,9 +1,10 @@
-﻿INSERT INTO [security].[User] ([Login], [Password], [Salt], [FirstName], [LastName]) VALUES (
+﻿INSERT INTO [security].[User] ([Login], [Password], [Salt], [FirstName], [LastName], [Type]) VALUES (
   'dali',
   'TBA',
   'TBA',
   'David',
-  'Lievrouw'
+  'Lievrouw',
+  'L'
 );
 GO
 
