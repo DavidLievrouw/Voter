@@ -4,7 +4,6 @@ using Autofac;
 using DavidLievrouw.Voter.Common;
 using DavidLievrouw.Voter.Composition;
 using DavidLievrouw.Voter.Security.Nancy;
-using DavidLievrouw.Voter.Security.Nancy.SessionHijacking;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Autofac;
@@ -15,7 +14,7 @@ namespace DavidLievrouw.Voter {
   public class Bootstrapper : AutofacNancyBootstrapper {
     static readonly Dictionary<string, string[]> StaticContentPaths = new Dictionary<string, string[]> {
       {"static", new[] {"png"}},
-      {"app/login", new[] {"png", "js", "css"}}
+      {"app/login", new[] {"js"}}
     };
 
     byte[] _favIcon;

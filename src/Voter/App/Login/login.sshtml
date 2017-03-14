@@ -15,9 +15,7 @@
     window.applicationInfo = @Model.ApplicationInfo;
   </script>
   <h1>Please log in</h1>
-  <div id="gConnect">
-    <img id="gConnectButton" src="~/app/login/signin_button.png" onClick="signInClick()" alt="Sign in with Google+" />
-  </div>
+  <div id="googleSignInButton" />
   <p>version __Automatic__File__Version__</p>
 </body>
 </html>

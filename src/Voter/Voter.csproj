@@ -229,9 +229,7 @@
     <Compile Include="Security\UserFromSessionResolver.cs" />
     <Compile Include="Startup.cs" />
     <Content Include="App\Login\gsignin.js" />
-    <Content Include="App\Login\login.css" />
     <Content Include="App\Login\login.sshtml" />
-    <Content Include="App\Login\signin_button.png" />
     <Content Include="App\Login\UrlService.js" />
     <Content Include="ConnectionStrings.config" />
     <Content Include="App\Dashboard\dashboard.sshtml" />

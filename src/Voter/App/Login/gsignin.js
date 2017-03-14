@@ -56,12 +56,20 @@ function startApp() {
       fetch_basic_profile: false,
       scope: 'https://www.googleapis.com/auth/plus.login'
     }).then(function () {
-      console.log('init');
       auth2 = gapi.auth2.getAuthInstance();
       auth2.then(function () {
         onSignInCallback(auth2.currentUser.get().getAuthResponse());
       });
     });
+  });
+
+  gapi.signin2.render("googleSignInButton", {
+    width: 200,
+    height: 50,
+    longtitle: true,
+    theme: 'dark',
+    onsuccess: handleLoginSuccess,
+    onfailure: handleLoginFailure
   });
 }
 
@@ -74,4 +82,12 @@ function signInClick() {
 
 function onSignInCallback(authResult) {
   helper.onSignInCallback(authResult);
+}
+
+function handleLoginSuccess(googleUser) {
+  helper.onSignInCallback(googleUser.getAuthResponse());
+}
+
+function handleLoginFailure() {
+  console.log('Login failure!');
 }

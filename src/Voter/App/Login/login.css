@@ -1,8 +1,0 @@
-﻿#gConnectButton {
-  width: 155px;
-}
-#gConnectButton:hover {
-  box-shadow: 2px 2px 3px #888888;
-  border-radius: 5px;
-  cursor: hand;
-}
