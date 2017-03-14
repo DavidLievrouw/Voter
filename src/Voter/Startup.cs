@@ -9,7 +9,6 @@ namespace DavidLievrouw.Voter {
   public class Startup {
     public void Configuration(IAppBuilder app) {
       app
-        .RequireAspNetSession()
         .UseNancy(
           options => {
             options.Bootstrapper = new Bootstrapper();          

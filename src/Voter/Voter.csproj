@@ -126,7 +126,6 @@
     <Compile Include="Api\Users\Validation\LoginRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\LogoutRequestValidator.cs" />
     <Compile Include="Api\Users\UsersModule.cs" />
-    <Compile Include="Extensions.AppBuilder.cs" />
     <Compile Include="App\AppModule.cs" />
     <Compile Include="App\Handlers\LoginViewModelHandler.cs" />
     <Compile Include="App\Models\LoginViewModel.cs" />
