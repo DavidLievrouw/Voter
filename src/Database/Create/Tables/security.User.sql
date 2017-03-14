@@ -1,12 +1,12 @@
 ﻿CREATE TABLE [security].[User](
   [Id] INT NOT NULL PRIMARY KEY IDENTITY, 
   [UniqueId] UNIQUEIDENTIFIER NOT NULL DEFAULT newid(), 
-  [Login] NVARCHAR(100) NOT NULL, 
-  [Password] NVARCHAR(1000) NOT NULL, 
-  [Salt] NVARCHAR(1000) NOT NULL, 
+  [Login] NVARCHAR(100) NULL, 
+  [Password] NVARCHAR(1000) NULL, 
+  [Salt] NVARCHAR(1000) NULL, 
   [FirstName] NVARCHAR(50) NOT NULL, 
   [LastName] NVARCHAR(50) NOT NULL, 
   [LastNamePrefix] NVARCHAR(50) NULL, 
-  [ExternalType] NCHAR(1) NULL, 
+  [Type] NCHAR(1) NOT NULL DEFAULT 'L', 
   [ExternalCorrelationId] NVARCHAR(50) NULL
 ) ON [PRIMARY];
