@@ -1,19 +1,22 @@
 ﻿using DavidLievrouw.Utils.ForTesting.FakeItEasy;
 using DavidLievrouw.Utils.ForTesting.FluentAssertions;
-using DavidLievrouw.Voter.Data;
+using DavidLievrouw.Voter.App.ApplicationInfo;
+using DavidLievrouw.Voter.Configuration;
 using FluentAssertions;
 using NUnit.Framework;
 
 namespace DavidLievrouw.Voter.App.Handlers {
   [TestFixture]
   public class LoginViewModelHandlerTests {
-    IUserDataService _userDataService;
+    IApplicationInfoProvider _applicationInfoProvider;
+    ICustomJsonSerializer _customJsonSerializer;
     LoginViewModelHandler _sut;
 
     [SetUp]
     public virtual void SetUp() {
-      _userDataService = _userDataService.Fake();
-      _sut = new LoginViewModelHandler(_userDataService);
+      _applicationInfoProvider = _applicationInfoProvider.Fake();
+      _customJsonSerializer = _customJsonSerializer.Fake();
+      _sut = new LoginViewModelHandler(_applicationInfoProvider, _customJsonSerializer);
     }
 
     [TestFixture]

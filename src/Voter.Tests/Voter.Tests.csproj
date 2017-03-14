@@ -108,7 +108,9 @@
     </Compile>
     <Compile Include="Api\Users\UsersModuleTests.LoginGooglePlusUser.cs" />
     <Compile Include="Api\Users\Validation\LoginGooglePlusUserRequestValidatorTests.cs" />
+    <Compile Include="App\ApplicationInfo\UrlInfoFromRequestProviderTests.cs" />
     <Compile Include="App\Handlers\LoginViewModelHandlerTests.cs" />
+    <Compile Include="App\Validation\NancyContextValidatorTests.cs" />
     <Compile Include="Composition\HttpRequestPhysicalRootPathResolverTests.cs" />
     <Compile Include="LightweightBootstrapper.cs" />
     <Compile Include="PassThroughDeciderTests.cs" />
@@ -117,7 +119,7 @@
     <Compile Include="FakeUserIdentity.cs" />
     <Compile Include="Api\Users\Handlers\GetCurrentUserHandlerTests.cs" />
     <Compile Include="Api\Users\Handlers\LogoutHandlerTests.cs" />
-    <Compile Include="Models.cs" />
+    <Compile Include="ModelsForTests.cs" />
     <Compile Include="Api\Handlers\RequestValidationAwareHandlerTests.cs" />
     <Compile Include="Api\Users\Validation\GetCurrentUserRequestValidatorTests.cs" />
     <Compile Include="Api\Users\Validation\LogoutRequestValidatorTests.cs" />

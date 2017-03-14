@@ -31,16 +31,16 @@ namespace DavidLievrouw.Voter.Api.Handlers {
     [Test]
     public void WhenValidationFails_ThrowsExceptionWithValidationResult() {
       A.CallTo(() => _validator.Validate(_thingToValidate))
-        .Returns(Models.ValidationResultFailure);
+        .Returns(ModelsForTests.ValidationResultFailure);
 
       Func<Task> act = () => _sut.Handle(_thingToValidate);
-      act.ShouldThrow<RequestValidationException>().Where(ex => ex.ValidationResult == Models.ValidationResultFailure);
+      act.ShouldThrow<RequestValidationException>().Where(ex => ex.ValidationResult == ModelsForTests.ValidationResultFailure);
     }
 
     [Test]
     public async Task WhenValidationSucceeds_DelegatesControlToInnerHandler() {
       A.CallTo(() => _validator.Validate(_thingToValidate))
-        .Returns(Models.ValidationResultSuccess);
+        .Returns(ModelsForTests.ValidationResultSuccess);
 
       var expectedResult = new object();
       A.CallTo(() => _decoratedHandler.Handle(_thingToValidate))

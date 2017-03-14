@@ -1,7 +1,7 @@
 using System;
 using DavidLievrouw.Utils;
+using DavidLievrouw.Voter.Api.Models;
 using DavidLievrouw.Voter.Api.Users.Models;
-using DavidLievrouw.Voter.Domain.DTO;
 using DavidLievrouw.Voter.Security.Nancy;
 using Nancy;
 using Nancy.Extensions;

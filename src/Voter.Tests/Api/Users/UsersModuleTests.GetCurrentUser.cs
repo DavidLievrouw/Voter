@@ -1,7 +1,7 @@
-﻿using DavidLievrouw.Utils.ForTesting.CompareNetObjects;
+﻿using System;
+using DavidLievrouw.Utils.ForTesting.CompareNetObjects;
 using DavidLievrouw.Utils.ForTesting.FakeItEasy;
 using DavidLievrouw.Voter.Api.Users.Models;
-using DavidLievrouw.Voter.Domain.DTO;
 using DavidLievrouw.Voter.Security;
 using FakeItEasy;
 using Nancy;
@@ -35,17 +35,18 @@ namespace DavidLievrouw.Voter.Api.Users {
           SecurityContext = securityContext
         };
 
-        A.CallTo(() => _getCurrentUserHandler.Handle(A<GetCurrentUserRequest>.That.HasSamePropertyValuesAs(expectedRequest))).Returns(_authenticatedUser);
+        var expectedUser = new Api.Models.User { UniqueId = Guid.NewGuid() };
+        A.CallTo(() => _getCurrentUserHandler.Handle(A<GetCurrentUserRequest>.That.HasSamePropertyValuesAs(expectedRequest))).Returns(expectedUser);
 
         var actual = Get();
 
         Assert.That(actual.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        var actualDeserialized = actual.Body.DeserializeJson<User>();
-        Assert.That(actualDeserialized.HasSamePropertyValuesAs(_authenticatedUser));
+        var actualDeserialized = actual.Body.DeserializeJson<Api.Models.User>();
+        Assert.That(actualDeserialized.HasSamePropertyValuesAs(expectedUser));
 
         A.CallTo(() => _getCurrentUserHandler
           .Handle(A<GetCurrentUserRequest>.That.Matches(req => req.HasSamePropertyValuesAs(expectedRequest))))
-         .MustHaveHappened(Repeated.Exactly.Once);
+         .MustHaveHappened();
       }
 
       BrowserResponse Get() {

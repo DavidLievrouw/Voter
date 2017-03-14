@@ -4,6 +4,7 @@ using Autofac.Core;
 using DavidLievrouw.Utils;
 using DavidLievrouw.Voter.Api.Handlers;
 using DavidLievrouw.Voter.App;
+using DavidLievrouw.Voter.App.ApplicationInfo;
 using DavidLievrouw.Voter.Security.Nancy;
 using FluentValidation;
 
@@ -13,6 +14,14 @@ namespace DavidLievrouw.Voter.Composition {
       base.Load(builder);
 
       var nancyAssembly = typeof(AppModule).Assembly;
+
+      // Register application general info providers
+      builder.RegisterType<ApplicationInfoProvider>()
+             .AsImplementedInterfaces()
+             .SingleInstance();
+      builder.RegisterType<UrlInfoFromRequestProvider>()
+             .AsImplementedInterfaces()
+             .SingleInstance();
 
       // Register validators
       builder.RegisterAssemblyTypes(nancyAssembly)

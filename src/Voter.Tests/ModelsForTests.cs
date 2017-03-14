@@ -2,7 +2,7 @@
 using FluentValidation.Results;
 
 namespace DavidLievrouw.Voter {
-  public class Models {
+  public class ModelsForTests {
     public static readonly ValidationResult ValidationResultSuccess = new ValidationResult();
     public static readonly ValidationResult ValidationResultFailure = new ValidationResult(new[] { new ValidationFailure("FakeProp", "FakeError") });
     public static readonly ValidationException ValidationException = new ValidationException(ValidationResultFailure.Errors);

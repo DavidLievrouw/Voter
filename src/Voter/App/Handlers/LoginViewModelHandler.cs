@@ -1,34 +1,30 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DavidLievrouw.Utils;
+using DavidLievrouw.Voter.App.ApplicationInfo;
 using DavidLievrouw.Voter.App.Models;
-using DavidLievrouw.Voter.Data;
-using DavidLievrouw.Voter.Domain.DTO;
+using DavidLievrouw.Voter.Configuration;
+using Nancy;
 
 namespace DavidLievrouw.Voter.App.Handlers {
-  public class LoginViewModelHandler : IHandler<LoginViewModel> {
-    readonly IUserDataService _userDataService;
+  public class LoginViewModelHandler : IHandler<NancyContext, LoginViewModel> {
+    readonly IApplicationInfoProvider _applicationInfoProvider;
+    readonly ICustomJsonSerializer _jsonSerializer;
 
-    public LoginViewModelHandler(IUserDataService userDataService) {
-      if (userDataService == null) throw new ArgumentNullException(nameof(userDataService));
-      _userDataService = userDataService;
+    public LoginViewModelHandler(
+      IApplicationInfoProvider applicationInfoProvider,
+      ICustomJsonSerializer jsonSerializer) {
+      if (applicationInfoProvider == null) throw new ArgumentNullException(nameof(applicationInfoProvider));
+      if (jsonSerializer == null) throw new ArgumentNullException(nameof(jsonSerializer));
+      _applicationInfoProvider = applicationInfoProvider;
+      _jsonSerializer = jsonSerializer;
     }
 
-    public async Task<LoginViewModel> Handle() {
-      var dataSourceResult = await _userDataService.GetUserById(Guid.Parse("85BCCB04-901C-407F-9C3B-6B91A955D42B"));
-
-      return new LoginViewModel {
-        User = new User {
-          FirstName = dataSourceResult.FirstName,
-          LastName = dataSourceResult.LastName,
-          LastNamePrefix = dataSourceResult.LastNamePrefix,
-          Login = new Login {Value = dataSourceResult.Login },
-          Password = new Password { Value = dataSourceResult.Password, IsEncrypted = dataSourceResult.Salt != null, Salt = dataSourceResult.Salt },
-          UniqueId = dataSourceResult.UniqueId
-        }
-      };
+    public Task<LoginViewModel> Handle(NancyContext context) {
+      if (context == null) throw new ArgumentNullException(nameof(context));
+      return Task.FromResult(new LoginViewModel {
+        ApplicationInfo = _jsonSerializer.Serialize(_applicationInfoProvider.GetApplicationInfo(context))
+      });
     }
-
-
   }
 }

@@ -12,13 +12,7 @@ namespace DavidLievrouw.Voter.Security.Nancy {
     }
 
     public User User { get; private set; }
-
-    public string UserName {
-      get { return User.Login.Value; }
-    }
-
-    public IEnumerable<string> Claims {
-      get { return Enumerable.Empty<string>(); }
-    }
+    public string UserName => User.Login?.Value ?? User.ExternalCorrelationId.Value;
+    public IEnumerable<string> Claims => Enumerable.Empty<string>();
   }
 }

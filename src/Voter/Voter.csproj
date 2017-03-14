@@ -146,6 +146,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Api\Models\User.cs" />
     <Compile Include="Api\Users\Handlers\GetCurrentUserHandler.cs" />
     <Compile Include="Api\Users\Handlers\LoginGooglePlusUserHandler.cs" />
     <Compile Include="Api\Users\Handlers\LoginLocalUserHandler.cs" />
@@ -161,9 +162,16 @@
     <Compile Include="Api\Users\Validation\LoginLocalUserRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\LogoutRequestValidator.cs" />
     <Compile Include="Api\Users\UsersModule.cs" />
+    <Compile Include="App\ApplicationInfo\ApplicationInfoProvider.cs" />
+    <Compile Include="App\ApplicationInfo\IApplicationInfoProvider.cs" />
+    <Compile Include="App\ApplicationInfo\IUrlInfoFromRequestProvider.cs" />
+    <Compile Include="App\ApplicationInfo\UrlInfoFromRequestProvider.cs" />
     <Compile Include="App\AppModule.cs" />
     <Compile Include="App\Handlers\LoginViewModelHandler.cs" />
+    <Compile Include="App\ApplicationInfo\ApplicationInfo.cs" />
     <Compile Include="App\Models\LoginViewModel.cs" />
+    <Compile Include="App\ApplicationInfo\UrlInfo.cs" />
+    <Compile Include="App\Validation\NancyContextValidator.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Composition\AppSettingsReader.cs" />
     <Compile Include="Composition\HttpRuntimePhysicalRootPathResolver.cs" />
@@ -218,6 +226,7 @@
     <Content Include="App\Login\login.css" />
     <Content Include="App\Login\login.sshtml" />
     <Content Include="App\Login\signin_button.png" />
+    <Content Include="App\Login\UrlService.js" />
     <Content Include="ConnectionStrings.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\DLVoter - FTP.pubxml" />

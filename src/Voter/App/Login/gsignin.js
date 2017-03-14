@@ -61,10 +61,12 @@ var helper = (function () {
      * Calls the server endpoint to disconnect the app for the user.
      */
     disconnectServer: function () {
+      var urlService = new UrlService(window.applicationInfo.urlInfo);
+      var absoluteUrl = urlService.getAbsoluteUrl('api/user/disconnect/googleplus');
       // Revoke the server tokens
       $.ajax({
         type: 'POST',
-        url: $(location).attr('origin') + '/api/user/disconnect/googleplus',
+        url: absoluteUrl,
         async: false,
         success: function (result) {
           console.log('revoke response: ' + result);
@@ -87,13 +89,14 @@ var helper = (function () {
      */
     connectServer: function (code) {
       console.log(code);
+      var urlService = new UrlService(window.applicationInfo.urlInfo);
+      var absoluteUrl = urlService.getAbsoluteUrl('api/user/login/googleplus');
       $.ajax({
         type: 'POST',
-        url: $(location).attr('origin') + '/api/user/login/googleplus',
+        url: absoluteUrl,
         contentType: 'application/octet-stream; charset=utf-8',
         success: function (result) {
           console.log(result);
-          helper.people();
           onSignInCallback(auth2.currentUser.get().getAuthResponse());
         },
         processData: false,
@@ -119,10 +122,6 @@ function startApp() {
       console.log('init');
       auth2 = gapi.auth2.getAuthInstance();
       auth2.then(function () {
-        /*var isAuthedCallback = function () {
-          onSignInCallback(auth2.currentUser.get().getAuthResponse())
-        }
-        helper.people(isAuthedCallback);*/
         onSignInCallback(auth2.currentUser.get().getAuthResponse());
       });
     }, function (err) {
@@ -131,39 +130,13 @@ function startApp() {
   });
 }
 
-/**
- * Either signs the user in or authorizes the back-end.
- */
 function signInClick() {
-  /*var signIn = function (result) {
-    auth2.signIn().then(
-      function (googleUser) {
-        onSignInCallback(googleUser.getAuthResponse());
-      }, function (error) {
-        alert(JSON.stringify(error, undefined, 2));
-      });
-  };
-
-  var reauthorize = function () {
-    auth2.grantOfflineAccess().then(
-      function (result) {
-        helper.connectServer(result.code);
-      });
-  };
-
-  helper.people(signIn, reauthorize);*/
   auth2.grantOfflineAccess().then(
       function (result) {
         helper.connectServer(result.code);
       });
 }
 
-/**
- * Calls the helper method that handles the authentication flow.
- *
- * @param {Object} authResult An Object which contains the access token and
- *   other authentication information.
- */
 function onSignInCallback(authResult) {
   helper.onSignInCallback(authResult);
 }

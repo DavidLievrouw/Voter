@@ -16,7 +16,7 @@ namespace DavidLievrouw.Voter.Api.Users {
   [TestFixture]
   public partial class UsersModuleTests {
     AppBootstrapper _bootstrapper;
-    IHandler<GetCurrentUserRequest, User> _getCurrentUserHandler;
+    IHandler<GetCurrentUserRequest, Api.Models.User> _getCurrentUserHandler;
     IHandler<LoginLocalUserRequest, bool> _loginLocalUserHandler;
     IHandler<LoginGooglePlusUserRequest, bool> _loginGooglePlusUserHandler;
     IHandler<LogoutRequest, bool> _logoutHandler;

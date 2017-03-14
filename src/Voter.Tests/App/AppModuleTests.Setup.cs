@@ -3,6 +3,7 @@ using DavidLievrouw.Utils.ForTesting.DotNet;
 using DavidLievrouw.Utils.ForTesting.FakeItEasy;
 using DavidLievrouw.Voter.App.Models;
 using DavidLievrouw.Voter.Configuration;
+using Nancy;
 using Nancy.Responses.Negotiation;
 using Nancy.Testing;
 using NUnit.Framework;
@@ -13,7 +14,7 @@ namespace DavidLievrouw.Voter.App {
     AppModule _sut;
     Browser _browser;
     AppBootstrapper _bootstrapper;
-    IHandler<LoginViewModel> _loginHandler;
+    IHandler<NancyContext, LoginViewModel> _loginHandler;
 
     [SetUp]
     public virtual void SetUp() {

@@ -1,5 +1,5 @@
-﻿using DavidLievrouw.Voter.App.Models;
-using DavidLievrouw.Voter.Domain.DTO;
+﻿using DavidLievrouw.Voter.Api.Models;
+using DavidLievrouw.Voter.App.Models;
 using FakeItEasy;
 using FluentAssertions;
 using Nancy;
@@ -30,8 +30,8 @@ namespace DavidLievrouw.Voter.App {
 
       [Test]
       public void ReturnsResultFromHandlerInView() {
-        var model = new LoginViewModel {User = new User {FirstName = "Pol"}};
-        A.CallTo(() => _loginHandler.Handle()).Returns(model);
+        var model = new LoginViewModel {ApplicationInfo = "ApplicationInfo"};
+        A.CallTo(() => _loginHandler.Handle(A<NancyContext>._)).Returns(model);
 
         var response = Get();
 
