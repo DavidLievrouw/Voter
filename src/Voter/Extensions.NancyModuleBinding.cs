@@ -4,7 +4,7 @@ using Nancy;
 using Nancy.ModelBinding;
 
 namespace DavidLievrouw.Voter {
-  public static class NancyModuleBindingExtensions {
+  public static partial class Extensions {
     public static TModel Bind<TModel>(this NancyModule module, object blacklistedProperties) {
       if (module == null) throw new ArgumentNullException(nameof(module));
       return module.Bind<TModel>((BindingConfig) null, null);

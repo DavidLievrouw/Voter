@@ -126,6 +126,7 @@
     <Compile Include="Api\Users\Validation\LoginRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\LogoutRequestValidator.cs" />
     <Compile Include="Api\Users\UsersModule.cs" />
+    <Compile Include="Extensions.AppBuilder.cs" />
     <Compile Include="App\AppModule.cs" />
     <Compile Include="App\Handlers\LoginViewModelHandler.cs" />
     <Compile Include="App\Models\LoginViewModel.cs" />
@@ -142,7 +143,8 @@
     <Compile Include="Configuration\CustomJsonSerializer.cs" />
     <Compile Include="Configuration\ICustomJsonSerializer.cs" />
     <Compile Include="ErrorPipelines.cs" />
-    <Compile Include="NancyModuleBindingExtensions.cs" />
+    <Compile Include="Extensions.NancyModuleBinding.cs" />
+    <Compile Include="Extensions.OwinContext.cs" />
     <Compile Include="Security\Nancy\IVoterIdentityFactory.cs" />
     <Compile Include="Security\Nancy\INancyIdentityFromContextAssigner.cs" />
     <Compile Include="Security\Nancy\INancySessionFromNancyContextResolver.cs" />
@@ -176,7 +178,10 @@
     <Compile Include="Security\Nancy\SessionHijacking\SecureSessionCookieReader.cs" />
     <Compile Include="Security\UserFromSessionResolver.cs" />
     <Compile Include="Startup.cs" />
+    <Content Include="App\Login\gsignin.js" />
+    <Content Include="App\Login\login.css" />
     <Content Include="App\Login\login.sshtml" />
+    <Content Include="App\Login\signin_button.png" />
     <Content Include="ConnectionStrings.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\DLVoter - FTP.pubxml" />
