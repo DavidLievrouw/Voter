@@ -1,6 +1,6 @@
 ﻿using System;
 using DavidLievrouw.Utils;
-using DavidLievrouw.Voter.App.Models;
+using DavidLievrouw.Voter.App.Login.Models;
 using Nancy;
 
 namespace DavidLievrouw.Voter.App {

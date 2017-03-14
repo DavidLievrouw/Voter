@@ -1,7 +1,7 @@
 ﻿using DavidLievrouw.Utils;
 using DavidLievrouw.Utils.ForTesting.DotNet;
 using DavidLievrouw.Utils.ForTesting.FakeItEasy;
-using DavidLievrouw.Voter.App.Models;
+using DavidLievrouw.Voter.App.Login.Models;
 using DavidLievrouw.Voter.Configuration;
 using Nancy;
 using Nancy.Responses.Negotiation;

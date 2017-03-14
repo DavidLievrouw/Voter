@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using DavidLievrouw.Utils;
 using DavidLievrouw.Voter.App.ApplicationInfo;
-using DavidLievrouw.Voter.App.Models;
+using DavidLievrouw.Voter.App.Login.Models;
 using DavidLievrouw.Voter.Configuration;
 using Nancy;
 
-namespace DavidLievrouw.Voter.App.Handlers {
+namespace DavidLievrouw.Voter.App.Login.Handlers {
   public class LoginViewModelHandler : IHandler<NancyContext, LoginViewModel> {
     readonly IApplicationInfoProvider _applicationInfoProvider;
     readonly ICustomJsonSerializer _jsonSerializer;

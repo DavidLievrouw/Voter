@@ -1,7 +1,8 @@
-﻿using Nancy;
+﻿using DavidLievrouw.Voter.App.Validation;
+using Nancy;
 using NUnit.Framework;
 
-namespace DavidLievrouw.Voter.App.Validation {
+namespace DavidLievrouw.Voter.App.Login.Validation {
   [TestFixture]
   public class NancyContextValidatorTests {
     NancyContextValidator _sut;

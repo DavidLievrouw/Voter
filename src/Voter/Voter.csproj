@@ -171,9 +171,9 @@
     <Compile Include="App\ApplicationInfo\IUrlInfoFromRequestProvider.cs" />
     <Compile Include="App\ApplicationInfo\UrlInfoFromRequestProvider.cs" />
     <Compile Include="App\AppModule.cs" />
-    <Compile Include="App\Handlers\LoginViewModelHandler.cs" />
+    <Compile Include="App\Login\Handlers\LoginViewModelHandler.cs" />
     <Compile Include="App\ApplicationInfo\ApplicationInfo.cs" />
-    <Compile Include="App\Models\LoginViewModel.cs" />
+    <Compile Include="App\Login\Models\LoginViewModel.cs" />
     <Compile Include="App\ApplicationInfo\UrlInfo.cs" />
     <Compile Include="App\Validation\NancyContextValidator.cs" />
     <Compile Include="Bootstrapper.cs" />

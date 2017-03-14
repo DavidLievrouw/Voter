@@ -1,5 +1,5 @@
 ﻿using DavidLievrouw.Voter.Api.Models;
-using DavidLievrouw.Voter.App.Models;
+using DavidLievrouw.Voter.App.Login.Models;
 using FakeItEasy;
 using FluentAssertions;
 using Nancy;

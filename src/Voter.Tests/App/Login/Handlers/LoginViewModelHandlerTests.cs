@@ -5,7 +5,7 @@ using DavidLievrouw.Voter.Configuration;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace DavidLievrouw.Voter.App.Handlers {
+namespace DavidLievrouw.Voter.App.Login.Handlers {
   [TestFixture]
   public class LoginViewModelHandlerTests {
     IApplicationInfoProvider _applicationInfoProvider;
