@@ -145,6 +145,7 @@
     <Compile Include="ErrorPipelines.cs" />
     <Compile Include="Extensions.NancyModuleBinding.cs" />
     <Compile Include="Extensions.OwinContext.cs" />
+    <Compile Include="PassThroughDecider.cs" />
     <Compile Include="Security\Nancy\IVoterIdentityFactory.cs" />
     <Compile Include="Security\Nancy\INancyIdentityFromContextAssigner.cs" />
     <Compile Include="Security\Nancy\INancySessionFromNancyContextResolver.cs" />

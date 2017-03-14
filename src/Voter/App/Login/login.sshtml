@@ -4,8 +4,8 @@
   <title>Voter</title>
 	<meta charset="utf-8" />
   <link rel="shortcut icon" type="image/png" href="~/static/vote64.png">
-  <link rel="stylesheet" type="text/css" href="./styles.css">
-  <script type="text/javascript" src="./gsignin.js"></script>
+  <link rel="stylesheet" type="text/css" href="~/app/login/login.css">
+  <script type="text/javascript" src="~/app/login/gsignin.js"></script>
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://plus.google.com/js/client:plusone.js?onload=startApp" async></script>
 </head>
@@ -13,7 +13,7 @@
 <h1>Hello world!</h1>
 <p>Loaded from db: @Model.User.LastName @Model.User.FirstName (@Model.User.UniqueId)</p>
 <div id="gConnect">
-  <img id="gConnectButton" src="./signin_button.png" onClick="signInClick()" alt="Sign in with Google+" />
+  <img id="gConnectButton" src="~/app/login/signin_button.png" onClick="signInClick()" alt="Sign in with Google+" />
 </div>
 <div id="authOps" style="display:none">
   <h2>User is now signed in to the app using Google+</h2>

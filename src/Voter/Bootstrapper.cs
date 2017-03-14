@@ -14,7 +14,8 @@ using Nancy.Session.InProc;
 namespace DavidLievrouw.Voter {
   public class Bootstrapper : AutofacNancyBootstrapper {
     static readonly Dictionary<string, string[]> StaticContentPaths = new Dictionary<string, string[]> {
-      {"Static", new[] {"png"}}
+      {"static", new[] {"png"}},
+      {"app/login", new[] {"png", "js", "css"}}
     };
 
     byte[] _favIcon;

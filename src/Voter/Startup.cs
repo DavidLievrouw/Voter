@@ -1,7 +1,6 @@
 using DavidLievrouw.Voter;
 using Microsoft.Owin;
 using Microsoft.Owin.Extensions;
-using Nancy;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -13,8 +12,9 @@ namespace DavidLievrouw.Voter {
         .RequireAspNetSession()
         .UseNancy(
           options => {
-            options.Bootstrapper = new Bootstrapper();
-            options.PerformPassThrough = nancyContext => nancyContext.Response != null && nancyContext.Response.StatusCode == HttpStatusCode.NotFound;
+            options.Bootstrapper = new Bootstrapper();          
+            // When Nancy returns 404 - Not Found, attempt to pass it through to any HttpHandlers that might still be able to handle the request
+            options.PerformPassThrough = PassThroughDecider.ConfigureAndPerformPassThroughIfNeeded;
           })
         .UseStageMarker(PipelineStage.PostAcquireState);
     }

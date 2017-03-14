@@ -109,6 +109,7 @@
     <Compile Include="App\Handlers\LoginViewModelHandlerTests.cs" />
     <Compile Include="Composition\HttpRequestPhysicalRootPathResolverTests.cs" />
     <Compile Include="LightweightBootstrapper.cs" />
+    <Compile Include="PassThroughDeciderTests.cs" />
     <Compile Include="WebConfigLoaderForUnitTests.cs" />
     <Compile Include="Composition\AppSettingsReaderTests.cs" />
     <Compile Include="FakeUserIdentity.cs" />
