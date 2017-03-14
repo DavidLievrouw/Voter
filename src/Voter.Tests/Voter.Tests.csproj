@@ -111,6 +111,7 @@
     <Compile Include="Api\Users\Validation\ActivateGooglePlusUserRequestValidatorTests.cs" />
     <Compile Include="Api\Users\Validation\LoginGooglePlusUserRequestValidatorTests.cs" />
     <Compile Include="App\ApplicationInfo\UrlInfoFromRequestProviderTests.cs" />
+    <Compile Include="App\AppModuleTests.GetDashboardView.cs" />
     <Compile Include="App\Login\Handlers\LoginViewModelHandlerTests.cs" />
     <Compile Include="App\Login\Validation\NancyContextValidatorTests.cs" />
     <Compile Include="Composition\HttpRequestPhysicalRootPathResolverTests.cs" />

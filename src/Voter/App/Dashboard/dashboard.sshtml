@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Voter dashboard</title>
+	<meta charset="utf-8" />
+  <link rel="shortcut icon" type="image/png" href="~/static/vote64.png">
+</head>
+<body>
+  <script type="text/javascript">
+    window.applicationInfo = @Model.ApplicationInfo;
+  </script>
+  <h1>Hello world!</h1>
+  <h2>User is now signed in to the app</h2>
+  <div id="profile">
+    <script type="text/javascript">
+      document.write(window.applicationInfo.currentUser.firstName + ' ' + window.applicationInfo.currentUser.lastName + ' (' + window.applicationInfo.currentUser.uniqueId + ')');
+    </script>
+  </div>
+  <p>version __Automatic__File__Version__</p>
+</body>
+</html>

@@ -10,8 +10,6 @@ namespace DavidLievrouw.Voter {
 
     public string UserName { get; private set; }
 
-    public IEnumerable<string> Claims {
-      get { return Enumerable.Empty<string>(); }
-    }
+    public IEnumerable<string> Claims => Enumerable.Empty<string>();
   }
 }

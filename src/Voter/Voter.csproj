@@ -171,6 +171,8 @@
     <Compile Include="App\ApplicationInfo\IUrlInfoFromRequestProvider.cs" />
     <Compile Include="App\ApplicationInfo\UrlInfoFromRequestProvider.cs" />
     <Compile Include="App\AppModule.cs" />
+    <Compile Include="App\Dashboard\Handlers\DashboardViewModelHandler.cs" />
+    <Compile Include="App\Dashboard\Models\DashboardViewModel.cs" />
     <Compile Include="App\Login\Handlers\LoginViewModelHandler.cs" />
     <Compile Include="App\ApplicationInfo\ApplicationInfo.cs" />
     <Compile Include="App\Login\Models\LoginViewModel.cs" />
@@ -232,6 +234,7 @@
     <Content Include="App\Login\signin_button.png" />
     <Content Include="App\Login\UrlService.js" />
     <Content Include="ConnectionStrings.config" />
+    <Content Include="App\Dashboard\dashboard.sshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\DLVoter - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\DLVoter - Web Deploy.pubxml" />

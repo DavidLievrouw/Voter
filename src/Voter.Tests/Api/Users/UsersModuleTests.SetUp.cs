@@ -1,4 +1,5 @@
-﻿using DavidLievrouw.Utils;
+﻿using System;
+using DavidLievrouw.Utils;
 using DavidLievrouw.Utils.ForTesting.DotNet;
 using DavidLievrouw.Utils.ForTesting.FakeItEasy;
 using DavidLievrouw.Voter.Api.Users.Models;
@@ -35,9 +36,9 @@ namespace DavidLievrouw.Voter.Api.Users {
       _logoutHandler = _logoutHandler.Fake();
       _nancySecurityContextFactory = _nancySecurityContextFactory.Fake();
       _sut = new UsersModule(
-        _getCurrentUserHandler, 
-        _loginLocalUserHandler, 
-        _loginGooglePlusUserHandler, 
+        _getCurrentUserHandler,
+        _loginLocalUserHandler,
+        _loginGooglePlusUserHandler,
         _activateGooglePlusUserHandler,
         _logoutHandler,
         _nancySecurityContextFactory);
@@ -48,6 +49,7 @@ namespace DavidLievrouw.Voter.Api.Users {
       _browser = new Browser(_bootstrapper, to => to.Accept(new MediaRange("application/json")));
 
       _authenticatedUser = new User {
+        UniqueId = Guid.NewGuid(),
         FirstName = "John",
         LastName = "Doe",
         Login = new Login {Value = "JDoe"},
