@@ -17,7 +17,8 @@ namespace DavidLievrouw.Voter.Api.Users {
   public partial class UsersModuleTests {
     AppBootstrapper _bootstrapper;
     IHandler<GetCurrentUserRequest, User> _getCurrentUserHandler;
-    IHandler<LoginRequest, bool> _loginHandler;
+    IHandler<LoginLocalUserRequest, bool> _loginLocalUserHandler;
+    IHandler<LoginGooglePlusUserRequest, bool> _loginGooglePlusUserHandler;
     IHandler<LogoutRequest, bool> _logoutHandler;
     INancySecurityContextFactory _nancySecurityContextFactory;
     Browser _browser;
@@ -27,10 +28,11 @@ namespace DavidLievrouw.Voter.Api.Users {
     [SetUp]
     public virtual void SetUp() {
       _getCurrentUserHandler = _getCurrentUserHandler.Fake();
-      _loginHandler = _loginHandler.Fake();
+      _loginLocalUserHandler = _loginLocalUserHandler.Fake();
+      _loginGooglePlusUserHandler = _loginGooglePlusUserHandler.Fake();
       _logoutHandler = _logoutHandler.Fake();
       _nancySecurityContextFactory = _nancySecurityContextFactory.Fake();
-      _sut = new UsersModule(_getCurrentUserHandler, _loginHandler, _logoutHandler, _nancySecurityContextFactory);
+      _sut = new UsersModule(_getCurrentUserHandler, _loginLocalUserHandler, _loginGooglePlusUserHandler, _logoutHandler, _nancySecurityContextFactory);
       _bootstrapper = new AppBootstrapper(with => {
         with.Module(_sut);
         with.RootPathProvider(new VoterRootPathProvider());

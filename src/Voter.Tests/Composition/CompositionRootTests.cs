@@ -75,7 +75,7 @@ namespace DavidLievrouw.Voter.Composition {
       Assert.That(actualResult, Is.InstanceOf(instanceType));
     }
 
-    [TestCase(typeof(IHandler<LoginRequest, bool>), typeof(RequestValidationAwareHandler<LoginRequest, bool>))]
+    [TestCase(typeof(IHandler<LoginLocalUserRequest, bool>), typeof(RequestValidationAwareHandler<LoginLocalUserRequest, bool>))]
     [TestCase(typeof(IHandler<GetCurrentUserRequest, User>), typeof(RequestValidationAwareHandler<GetCurrentUserRequest, User>))]
     [TestCase(typeof(INancySecurityContextFactory), typeof(NancySecurityContextFactory))]
     public void RegistersDecoratorsCorrectly(Type requestedType, Type expectedType) {

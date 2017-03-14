@@ -1,21 +1,21 @@
-﻿using DavidLievrouw.Utils.ForTesting.CompareNetObjects;
-using DavidLievrouw.Voter.Api.Users.Models;
+﻿using DavidLievrouw.Voter.Api.Users.Models;
 using DavidLievrouw.Voter.Security;
 using FakeItEasy;
+using FluentAssertions;
 using Nancy;
 using Nancy.Testing;
 using NUnit.Framework;
 
 namespace DavidLievrouw.Voter.Api.Users {
   public partial class UsersModuleTests {
-    public class LoginUser : UsersModuleTests {
+    public class LoginLocalUser : UsersModuleTests {
       string _validPath;
 
       [SetUp]
       public override void SetUp() {
         base.SetUp();
         _bootstrapper.AuthenticatedUser = _authenticatedUser;
-        _validPath = "api/user/login";
+        _validPath = "api/user/login/local";
       }
 
       [Test]
@@ -27,20 +27,22 @@ namespace DavidLievrouw.Voter.Api.Users {
 
       [Test]
       public void ParsesRequestCorrectly() {
+        LoginLocalUserRequest interceptedRequest = null;
+        A.CallTo(() => _loginLocalUserHandler.Handle(A<LoginLocalUserRequest>._))
+         .Invokes(call => interceptedRequest = call.GetArgument<LoginLocalUserRequest>(0))
+         .Returns(true);
+
         var securityContext = A.Fake<ISecurityContext>();
         ConfigureSecurityContextFactory_ToReturn(securityContext);
 
-        var expectedCommand = new LoginRequest {
+        Post();
+
+        var expected = new LoginLocalUserRequest {
           Login = "JDoe",
           Password = "ThePassword",
           SecurityContext = securityContext
         };
-
-        Post();
-
-        A.CallTo(() => _loginHandler
-          .Handle(A<LoginRequest>.That.Matches(req => req.HasSamePropertyValuesAs(expectedCommand))))
-         .MustHaveHappened(Repeated.Exactly.Once);
+        interceptedRequest.ShouldBeEquivalentTo(expected);
       }
 
       [Test]
@@ -48,45 +50,42 @@ namespace DavidLievrouw.Voter.Api.Users {
         var response = Post("SomeInvalidJsonString");
 
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-        A.CallTo(() => _loginHandler
-          .Handle(A<LoginRequest>._))
+        A.CallTo(() => _loginLocalUserHandler
+           .Handle(A<LoginLocalUserRequest>._))
          .MustNotHaveHappened();
       }
 
       [Test]
       public void GivenMissingBodyInRequest_CallsInnerHandlerWithEmptyRequest() {
+        LoginLocalUserRequest interceptedRequest = null;
+        A.CallTo(() => _loginLocalUserHandler.Handle(A<LoginLocalUserRequest>._))
+         .Invokes(call => interceptedRequest = call.GetArgument<LoginLocalUserRequest>(0))
+         .Returns(true);
+
         var securityContext = A.Fake<ISecurityContext>();
         ConfigureSecurityContextFactory_ToReturn(securityContext);
-        var expectedCommand = new LoginRequest {
-          Login = null,
-          Password = null,
-          SecurityContext = securityContext
-        };
 
         var response = Post(null);
 
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        A.CallTo(() => _loginHandler
-          .Handle(A<LoginRequest>.That.Matches(req => req.HasSamePropertyValuesAs(expectedCommand))))
-         .MustHaveHappened(Repeated.Exactly.Once);
+        var expected = new LoginLocalUserRequest {
+          Login = null,
+          Password = null,
+          SecurityContext = securityContext
+        };
+        interceptedRequest.ShouldBeEquivalentTo(expected);
       }
 
       [Test]
-      public void WithValidJson_ShouldDelegateControlToInnerHandler() {
+      public void DelegatesControlToInnerHandler() {
         var securityContext = A.Fake<ISecurityContext>();
         ConfigureSecurityContextFactory_ToReturn(securityContext);
-        var expectedCommand = new LoginRequest {
-          Login = "JDoe",
-          Password = "ThePassword",
-          SecurityContext = securityContext
-        };
+        A.CallTo(() => _loginLocalUserHandler.Handle(A<LoginLocalUserRequest>._)).Returns(true);
 
         var response = Post();
 
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        A.CallTo(() => _loginHandler
-          .Handle(A<LoginRequest>.That.Matches(req => req.HasSamePropertyValuesAs(expectedCommand))))
-         .MustHaveHappened(Repeated.Exactly.Once);
+        response.Body.DeserializeJson<bool>().Should().BeTrue();
       }
 
       BrowserResponse Post(string body = ValidJsonString) {

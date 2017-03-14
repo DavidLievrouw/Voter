@@ -4,8 +4,8 @@ using DavidLievrouw.Voter.Api.Users.Models;
 using DavidLievrouw.Voter.Domain.DTO;
 
 namespace DavidLievrouw.Voter.Api.Users.Handlers {
-  public class LoginHandler : IHandler<LoginRequest, bool> {
-    public Task<bool> Handle(LoginRequest request) {
+  public class LoginLocalUserHandler : IHandler<LoginLocalUserRequest, bool> {
+    public Task<bool> Handle(LoginLocalUserRequest request) {
       // Authorise user: ToDo
       var user = new User {
         FirstName = "John",

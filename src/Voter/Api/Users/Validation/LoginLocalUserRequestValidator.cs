@@ -3,8 +3,8 @@ using DavidLievrouw.Voter.Common;
 using FluentValidation;
 
 namespace DavidLievrouw.Voter.Api.Users.Validation {
-  public class LoginRequestValidator : NullAllowableValidator<LoginRequest> {
-    public LoginRequestValidator() {
+  public class LoginLocalUserRequestValidator : NullAllowableValidator<LoginLocalUserRequest> {
+    public LoginLocalUserRequestValidator() {
       RuleFor(req => req.Login)
         .NotNull()
         .WithMessage("A valid login should be specified.");
