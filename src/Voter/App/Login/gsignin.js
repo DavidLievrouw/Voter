@@ -20,8 +20,22 @@ var helper = (function () {
         // The user is signed in
         this.authResult = authResult;
 
+        var urlService = new UrlService(window.applicationInfo.urlInfo);
+        var absoluteUrl = urlService.getAbsoluteUrl('api/user/activate/googleplus');
+        $.ajax({
+          type: 'POST',
+          url: absoluteUrl,
+          contentType: 'application/octet-stream; charset=utf-8',
+          success: function (result) {
+            console.log(result);
+            gapi.client.load('plus', 'v1', this.renderProfile);
+          },
+          processData: false,
+          data: authResult['id_token']
+        });
+
         // After we load the Google+ API, render the profile data from Google+.
-        gapi.client.load('plus', 'v1', this.renderProfile);
+        //gapi.client.load('plus', 'v1', this.renderProfile);
       } else if (authResult['error']) {
         // There was an error, which means the user is not signed in.
         // As an example, you can troubleshoot by writing to the console:

@@ -147,17 +147,21 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Api\Models\User.cs" />
+    <Compile Include="Api\Users\GooglePlusSecrets.cs" />
     <Compile Include="Api\Users\Handlers\GetCurrentUserHandler.cs" />
+    <Compile Include="Api\Users\Handlers\ActivateGooglePlusUserHandler.cs" />
     <Compile Include="Api\Users\Handlers\LoginGooglePlusUserHandler.cs" />
     <Compile Include="Api\Users\Handlers\LoginLocalUserHandler.cs" />
     <Compile Include="Api\Users\Handlers\LogoutHandler.cs" />
     <Compile Include="Api\Handlers\RequestValidationAwareHandler.cs" />
     <Compile Include="Api\Handlers\RequestValidationException.cs" />
+    <Compile Include="Api\Users\Models\ActivateGooglePlusUserRequest.cs" />
     <Compile Include="Api\Users\Models\LoginGooglePlusUserRequest.cs" />
     <Compile Include="Api\Users\Models\LogoutRequest.cs" />
     <Compile Include="Api\Users\Models\LoginLocalUserRequest.cs" />
     <Compile Include="Api\Users\Models\GetCurrentUserRequest.cs" />
     <Compile Include="Api\Users\Validation\GetCurrentUserRequestValidator.cs" />
+    <Compile Include="Api\Users\Validation\ActivateGooglePlusUserRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\LoginGooglePlusUserRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\LoginLocalUserRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\LogoutRequestValidator.cs" />

@@ -76,7 +76,7 @@ namespace DavidLievrouw.Voter.Composition {
     }
 
     [TestCase(typeof(IHandler<LoginLocalUserRequest, bool>), typeof(RequestValidationAwareHandler<LoginLocalUserRequest, bool>))]
-    [TestCase(typeof(IHandler<GetCurrentUserRequest, User>), typeof(RequestValidationAwareHandler<GetCurrentUserRequest, User>))]
+    [TestCase(typeof(IHandler<GetCurrentUserRequest, Api.Models.User>), typeof(RequestValidationAwareHandler<GetCurrentUserRequest, Api.Models.User>))]
     [TestCase(typeof(INancySecurityContextFactory), typeof(NancySecurityContextFactory))]
     public void RegistersDecoratorsCorrectly(Type requestedType, Type expectedType) {
       object actualResult = null;

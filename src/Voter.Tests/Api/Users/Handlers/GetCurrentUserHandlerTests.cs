@@ -3,6 +3,7 @@ using DavidLievrouw.Voter.Api.Users.Models;
 using DavidLievrouw.Voter.Domain.DTO;
 using DavidLievrouw.Voter.Security;
 using FakeItEasy;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace DavidLievrouw.Voter.Api.Users.Handlers {
@@ -31,7 +32,7 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
 
     [Test]
     public void GivenContextWithValidUser_ReturnsUser() {
-      var user = new User {Login = new Login {Value = "JohnD"}};
+      var user = new User {Login = new Login {Value = "JohnD"}, LastName = "Doe" };
       ConfigureSecurityContext_ToReturn(user);
       var request = new GetCurrentUserRequest {
         SecurityContext = _securityContext
@@ -39,8 +40,8 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
 
       var actual = _sut.Handle(request).Result;
 
-      Assert.That(actual, Is.Not.Null);
-      Assert.That(actual, Is.EqualTo(user));
+      var expected = new Api.Models.User { LastName = "Doe" };
+      actual.ShouldBeEquivalentTo(expected);
     }
 
     void ConfigureSecurityContext_ToReturn(User user) {

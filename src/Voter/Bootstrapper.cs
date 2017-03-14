@@ -36,14 +36,14 @@ namespace DavidLievrouw.Voter {
 
       // Enable memory sessions, and secure them against session hijacking
       pipelines.EnableInProcSessions();
-      pipelines.BeforeRequest.AddItemToStartOfPipeline(ctx => {
+      /*pipelines.BeforeRequest.AddItemToStartOfPipeline(ctx => {
         var antiSessionHijackLogic = container.Resolve<IAntiSessionHijackLogic>();
         return antiSessionHijackLogic.InterceptHijackedSession(ctx.Request);
       });
       pipelines.AfterRequest.AddItemToEndOfPipeline(ctx => {
         var antiSessionHijackLogic = container.Resolve<IAntiSessionHijackLogic>();
         antiSessionHijackLogic.ProtectResponseFromSessionHijacking(ctx);
-      });
+      });*/
 
       // Load the user from the AspNet session. If one is found, create a Nancy identity and assign it.
       pipelines.BeforeRequest.AddItemToEndOfPipeline(ctx => {

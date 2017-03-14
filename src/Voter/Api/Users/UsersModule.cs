@@ -13,11 +13,13 @@ namespace DavidLievrouw.Voter.Api.Users {
       IHandler<GetCurrentUserRequest, User> getCurrentUserHandler,
       IHandler<LoginLocalUserRequest, bool> loginLocalUserHandler,
       IHandler<LoginGooglePlusUserRequest, bool> loginGooglePlusUserHandler,
+      IHandler<ActivateGooglePlusUserRequest, bool> activateGooglePlusUserHandler,
       IHandler<LogoutRequest, bool> logoutHandler,
       INancySecurityContextFactory nancySecurityContextFactory) {
       if (getCurrentUserHandler == null) throw new ArgumentNullException(nameof(getCurrentUserHandler));
       if (loginLocalUserHandler == null) throw new ArgumentNullException(nameof(loginLocalUserHandler));
       if (loginGooglePlusUserHandler == null) throw new ArgumentNullException(nameof(loginGooglePlusUserHandler));
+      if (activateGooglePlusUserHandler == null) throw new ArgumentNullException(nameof(activateGooglePlusUserHandler));
       if (logoutHandler == null) throw new ArgumentNullException(nameof(logoutHandler));
       if (nancySecurityContextFactory == null) throw new ArgumentNullException(nameof(nancySecurityContextFactory));
 
@@ -42,6 +44,12 @@ namespace DavidLievrouw.Voter.Api.Users {
         await loginGooglePlusUserHandler.Handle(this.Bind(() => new LoginGooglePlusUserRequest {
           SecurityContext = nancySecurityContextFactory.Create(Context),
           Code = Context.Request.Body.AsString()
+        }));
+
+      Post["api/user/activate/googleplus", true] = async (parameters, cancellationToken) =>
+        await activateGooglePlusUserHandler.Handle(this.Bind(() => new ActivateGooglePlusUserRequest {
+          SecurityContext = nancySecurityContextFactory.Create(Context),
+          IdToken = Context.Request.Body.AsString()
         }));
 
       Post["api/user/logout", true] = async (parameters, cancellationToken) => {

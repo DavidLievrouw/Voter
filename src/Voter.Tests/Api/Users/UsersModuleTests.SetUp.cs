@@ -19,6 +19,7 @@ namespace DavidLievrouw.Voter.Api.Users {
     IHandler<GetCurrentUserRequest, Api.Models.User> _getCurrentUserHandler;
     IHandler<LoginLocalUserRequest, bool> _loginLocalUserHandler;
     IHandler<LoginGooglePlusUserRequest, bool> _loginGooglePlusUserHandler;
+    IHandler<ActivateGooglePlusUserRequest, bool> _activateGooglePlusUserHandler;
     IHandler<LogoutRequest, bool> _logoutHandler;
     INancySecurityContextFactory _nancySecurityContextFactory;
     Browser _browser;
@@ -30,9 +31,16 @@ namespace DavidLievrouw.Voter.Api.Users {
       _getCurrentUserHandler = _getCurrentUserHandler.Fake();
       _loginLocalUserHandler = _loginLocalUserHandler.Fake();
       _loginGooglePlusUserHandler = _loginGooglePlusUserHandler.Fake();
+      _activateGooglePlusUserHandler = _activateGooglePlusUserHandler.Fake();
       _logoutHandler = _logoutHandler.Fake();
       _nancySecurityContextFactory = _nancySecurityContextFactory.Fake();
-      _sut = new UsersModule(_getCurrentUserHandler, _loginLocalUserHandler, _loginGooglePlusUserHandler, _logoutHandler, _nancySecurityContextFactory);
+      _sut = new UsersModule(
+        _getCurrentUserHandler, 
+        _loginLocalUserHandler, 
+        _loginGooglePlusUserHandler, 
+        _activateGooglePlusUserHandler,
+        _logoutHandler,
+        _nancySecurityContextFactory);
       _bootstrapper = new AppBootstrapper(with => {
         with.Module(_sut);
         with.RootPathProvider(new VoterRootPathProvider());

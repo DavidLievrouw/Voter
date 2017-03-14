@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using DavidLievrouw.Utils;
 using DavidLievrouw.Voter.Api.Users.Models;
@@ -10,10 +9,10 @@ using Google.Apis.Oauth2.v2;
 using Google.Apis.Plus.v1;
 
 namespace DavidLievrouw.Voter.Api.Users.Handlers {
-  public class LoginGooglePlusUserHandler : IHandler<LoginGooglePlusUserRequest, bool> {
-    public async Task<bool> Handle(LoginGooglePlusUserRequest request) {
+  public class ActivateGooglePlusUserHandler : IHandler<ActivateGooglePlusUserRequest, bool> {
+    public async Task<bool> Handle(ActivateGooglePlusUserRequest request) {
       if (request.SecurityContext.GetAuthenticatedUser() != null) {
-        // The user is already connected
+        // The user is already logged in
         return true;
       }
 
@@ -23,17 +22,13 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
         Scopes = GooglePlusSecrets.Scopes
       });
 
-      var token = await flow.ExchangeCodeForTokenAsync(
-        "",
-        request.Code,
-        "postmessage",
-        CancellationToken.None);
+      var token = await flow.LoadTokenAsync("me", CancellationToken.None);
 
       // Get tokeninfo for the access token if you want to verify.
       var service = new Oauth2Service(
         new Google.Apis.Services.BaseClientService.Initializer());
       var oauthRequest = service.Tokeninfo();
-      oauthRequest.AccessToken = token.AccessToken;
+      oauthRequest.AccessToken = request.IdToken;
 
       var info = oauthRequest.Execute();
 
