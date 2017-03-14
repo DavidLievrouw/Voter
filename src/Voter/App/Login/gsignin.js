@@ -64,7 +64,7 @@ var helper = (function () {
       // Revoke the server tokens
       $.ajax({
         type: 'POST',
-        url: $(location).attr('origin') + '/disconnect',
+        url: $(location).attr('origin') + '/api/user/disconnect/googleplus',
         async: false,
         success: function (result) {
           console.log('revoke response: ' + result);
@@ -89,7 +89,7 @@ var helper = (function () {
       console.log(code);
       $.ajax({
         type: 'POST',
-        url: $(location).attr('origin') + '/connect?state={{ STATE }}',
+        url: $(location).attr('origin') + '/api/user/login/googleplus',
         contentType: 'application/octet-stream; charset=utf-8',
         success: function (result) {
           console.log(result);
@@ -119,10 +119,11 @@ function startApp() {
       console.log('init');
       auth2 = gapi.auth2.getAuthInstance();
       auth2.then(function () {
-        var isAuthedCallback = function () {
+        /*var isAuthedCallback = function () {
           onSignInCallback(auth2.currentUser.get().getAuthResponse())
         }
-        helper.people(isAuthedCallback);
+        helper.people(isAuthedCallback);*/
+        onSignInCallback(auth2.currentUser.get().getAuthResponse());
       });
     }, function (err) {
       console.log(err);
@@ -134,7 +135,7 @@ function startApp() {
  * Either signs the user in or authorizes the back-end.
  */
 function signInClick() {
-  var signIn = function (result) {
+  /*var signIn = function (result) {
     auth2.signIn().then(
       function (googleUser) {
         onSignInCallback(googleUser.getAuthResponse());
@@ -150,7 +151,11 @@ function signInClick() {
       });
   };
 
-  helper.people(signIn, reauthorize);
+  helper.people(signIn, reauthorize);*/
+  auth2.grantOfflineAccess().then(
+      function (result) {
+        helper.connectServer(result.code);
+      });
 }
 
 /**
