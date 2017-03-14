@@ -152,14 +152,17 @@
     <Compile Include="Api\Users\Handlers\ActivateGooglePlusUserHandler.cs" />
     <Compile Include="Api\Users\Handlers\LoginGooglePlusUserHandler.cs" />
     <Compile Include="Api\Users\Handlers\LoginLocalUserHandler.cs" />
+    <Compile Include="Api\Users\Handlers\DisconnectGooglePlusUserHandler.cs" />
     <Compile Include="Api\Users\Handlers\LogoutHandler.cs" />
     <Compile Include="Api\Handlers\RequestValidationAwareHandler.cs" />
     <Compile Include="Api\Handlers\RequestValidationException.cs" />
     <Compile Include="Api\Users\Models\ActivateGooglePlusUserRequest.cs" />
     <Compile Include="Api\Users\Models\LoginGooglePlusUserRequest.cs" />
+    <Compile Include="Api\Users\Models\DisconnectGooglePlusUserRequest.cs" />
     <Compile Include="Api\Users\Models\LogoutRequest.cs" />
     <Compile Include="Api\Users\Models\LoginLocalUserRequest.cs" />
     <Compile Include="Api\Users\Models\GetCurrentUserRequest.cs" />
+    <Compile Include="Api\Users\Validation\DisconnectGooglePlusUserRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\GetCurrentUserRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\ActivateGooglePlusUserRequestValidator.cs" />
     <Compile Include="Api\Users\Validation\LoginGooglePlusUserRequestValidator.cs" />

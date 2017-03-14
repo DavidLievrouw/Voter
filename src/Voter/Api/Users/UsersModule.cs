@@ -14,12 +14,14 @@ namespace DavidLievrouw.Voter.Api.Users {
       IHandler<LoginLocalUserRequest, bool> loginLocalUserHandler,
       IHandler<LoginGooglePlusUserRequest, bool> loginGooglePlusUserHandler,
       IHandler<ActivateGooglePlusUserRequest, bool> activateGooglePlusUserHandler,
+      IHandler<DisconnectGooglePlusUserRequest, bool> disconnectGooglePlusUserHandler,
       IHandler<LogoutRequest, bool> logoutHandler,
       INancySecurityContextFactory nancySecurityContextFactory) {
       if (getCurrentUserHandler == null) throw new ArgumentNullException(nameof(getCurrentUserHandler));
       if (loginLocalUserHandler == null) throw new ArgumentNullException(nameof(loginLocalUserHandler));
       if (loginGooglePlusUserHandler == null) throw new ArgumentNullException(nameof(loginGooglePlusUserHandler));
       if (activateGooglePlusUserHandler == null) throw new ArgumentNullException(nameof(activateGooglePlusUserHandler));
+      if (disconnectGooglePlusUserHandler == null) throw new ArgumentNullException(nameof(disconnectGooglePlusUserHandler));
       if (logoutHandler == null) throw new ArgumentNullException(nameof(logoutHandler));
       if (nancySecurityContextFactory == null) throw new ArgumentNullException(nameof(nancySecurityContextFactory));
 
@@ -51,6 +53,13 @@ namespace DavidLievrouw.Voter.Api.Users {
           SecurityContext = nancySecurityContextFactory.Create(Context),
           AccessToken = Context.Request.Body.AsString()
         }));
+
+      Post["api/user/disconnect/googleplus", true] = async (parameters, cancellationToken) => {
+        this.RequiresAuthentication();
+        return await disconnectGooglePlusUserHandler.Handle(this.Bind(() => new DisconnectGooglePlusUserRequest {
+          SecurityContext = nancySecurityContextFactory.Create(Context)
+        }));
+      };
 
       Post["api/user/logout", true] = async (parameters, cancellationToken) => {
         this.RequiresAuthentication();

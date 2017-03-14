@@ -6,8 +6,8 @@ using DavidLievrouw.Voter.Domain.DTO;
 using Google.Apis.Auth.OAuth2.Responses;
 
 namespace DavidLievrouw.Voter.Api.Users.Handlers {
-  public class LogoutHandler : IHandler<LogoutRequest, bool> {
-    public Task<bool> Handle(LogoutRequest request) {
+  public class DisconnectGooglePlusUserHandler : IHandler<DisconnectGooglePlusUserRequest, bool> {
+    public Task<bool> Handle(DisconnectGooglePlusUserRequest request) {
       // Get rid of the token, if there is one
       var user = request.SecurityContext.GetAuthenticatedUser();
       if (user.Type == UserType.GooglePlus) {
@@ -20,6 +20,8 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
       }
 
       request.SecurityContext.SetAuthenticatedUser(null);
+
+      // ToDo: Remove correlation from database
 
       return Task.FromResult(true);
     }

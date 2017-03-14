@@ -108,6 +108,8 @@
     </Compile>
     <Compile Include="Api\Users\UsersModuleTests.ActivateGooglePlusUser.cs" />
     <Compile Include="Api\Users\UsersModuleTests.LoginGooglePlusUser.cs" />
+    <Compile Include="Api\Users\UsersModuleTests.DisconnectGooglePlusUser.cs" />
+    <Compile Include="Api\Users\Validation\DisconnectGooglePlusUserRequestValidatorTests.cs" />
     <Compile Include="Api\Users\Validation\ActivateGooglePlusUserRequestValidatorTests.cs" />
     <Compile Include="Api\Users\Validation\LoginGooglePlusUserRequestValidatorTests.cs" />
     <Compile Include="App\ApplicationInfo\UrlInfoFromRequestProviderTests.cs" />

@@ -39,7 +39,7 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
       // Register the authenticator and construct the Plus service
       // for performing API calls on behalf of the user.
       var credential = new UserCredential(flow, "me", token);
-      var success = await credential.RefreshTokenAsync(CancellationToken.None);
+      await credential.RefreshTokenAsync(CancellationToken.None);
       token = credential.Token;
 
       var plusService = new PlusService(
@@ -56,8 +56,11 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
         ExternalCorrelationId = new ExternalCorrelationId {Value = info.UserId},
         Type = UserType.GooglePlus
       };
+      user.Environment["GoogleToken"] = token;
 
       request.SecurityContext.SetAuthenticatedUser(user);
+
+      // ToDo: Add or update user in database
 
       return true;
     }
