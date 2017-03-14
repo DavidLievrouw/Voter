@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using DavidLievrouw.Utils;
 using DavidLievrouw.Voter.Api.Users.Models;
@@ -55,8 +54,7 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
         FirstName = me.Name.GivenName,
         LastName = me.Name.FamilyName,
         ExternalCorrelationId = new ExternalCorrelationId {Value = info.UserId},
-        Type = UserType.GooglePlus,
-        Environment = {["GoogleToken"] = token}
+        Type = UserType.GooglePlus
       };
 
       request.SecurityContext.SetAuthenticatedUser(user);

@@ -49,7 +49,7 @@ namespace DavidLievrouw.Voter.Api.Users {
       Post["api/user/activate/googleplus", true] = async (parameters, cancellationToken) =>
         await activateGooglePlusUserHandler.Handle(this.Bind(() => new ActivateGooglePlusUserRequest {
           SecurityContext = nancySecurityContextFactory.Create(Context),
-          IdToken = Context.Request.Body.AsString()
+          AccessToken = Context.Request.Body.AsString()
         }));
 
       Post["api/user/logout", true] = async (parameters, cancellationToken) => {

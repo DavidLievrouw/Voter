@@ -20,9 +20,9 @@ namespace DavidLievrouw.Voter.Api.Users.Validation {
     }
 
     [Test]
-    public void NullIdToken_IsInvalid() {
+    public void NullAccessToken_IsInvalid() {
       var input = new ActivateGooglePlusUserRequest {
-        IdToken = null,
+        AccessToken = null,
         SecurityContext = A.Dummy<ISecurityContext>()
       };
       var actualResult = _sut.Validate(input);
@@ -32,7 +32,7 @@ namespace DavidLievrouw.Voter.Api.Users.Validation {
     [Test]
     public void NullSecurityContext_IsInvalid() {
       var input = new ActivateGooglePlusUserRequest {
-        IdToken = "TheIdToken",
+        AccessToken = "TheAccessToken",
         SecurityContext = null
       };
       var actualResult = _sut.Validate(input);
@@ -40,9 +40,9 @@ namespace DavidLievrouw.Voter.Api.Users.Validation {
     }
 
     [Test]
-    public void EmptyIdToken_IsInvalid() {
+    public void EmptyAccessToken_IsInvalid() {
       var input = new ActivateGooglePlusUserRequest {
-        IdToken = string.Empty,
+        AccessToken = string.Empty,
         SecurityContext = A.Dummy<ISecurityContext>()
       };
       var actualResult = _sut.Validate(input);
@@ -52,7 +52,7 @@ namespace DavidLievrouw.Voter.Api.Users.Validation {
     [Test]
     public void ValidCommand_IsValid() {
       var input = new ActivateGooglePlusUserRequest {
-        IdToken = "TheIdToken",
+        AccessToken = "TheAccessToken",
         SecurityContext = A.Dummy<ISecurityContext>()
       };
       var actualResult = _sut.Validate(input);

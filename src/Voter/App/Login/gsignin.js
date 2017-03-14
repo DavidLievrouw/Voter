@@ -31,7 +31,7 @@ var helper = (function () {
             gapi.client.load('plus', 'v1', this.renderProfile);
           },
           processData: false,
-          data: authResult['id_token']
+          data: authResult['access_token']
         });
 
         // After we load the Google+ API, render the profile data from Google+.

@@ -1,12 +1,10 @@
-﻿using System.Threading;
+﻿using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using DavidLievrouw.Utils;
 using DavidLievrouw.Voter.Api.Users.Models;
 using DavidLievrouw.Voter.Domain.DTO;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Oauth2.v2;
-using Google.Apis.Plus.v1;
+using Newtonsoft.Json;
 
 namespace DavidLievrouw.Voter.Api.Users.Handlers {
   public class ActivateGooglePlusUserHandler : IHandler<ActivateGooglePlusUserRequest, bool> {
@@ -15,48 +13,35 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
         // The user is already logged in
         return true;
       }
+     
+      var responseJson = "";
+      using (var memoryStream = new MemoryStream()) {
+        var webRequest = WebRequest.Create("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + request.AccessToken);
+        var response = webRequest.GetResponse();
+        response.GetResponseStream().CopyTo(memoryStream);
+        memoryStream.Seek(0, SeekOrigin.Begin);
+        using (var reader = new StreamReader(memoryStream)) {
+          responseJson = reader.ReadToEnd();
+        }
+      }
 
-      // Use the code exchange flow to get an access and refresh token.
-      IAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer {
-        ClientSecrets = GooglePlusSecrets.Secrets,
-        Scopes = GooglePlusSecrets.Scopes
-      });
-
-      var token = await flow.LoadTokenAsync("me", CancellationToken.None);
-
-      // Get tokeninfo for the access token if you want to verify.
-      var service = new Oauth2Service(
-        new Google.Apis.Services.BaseClientService.Initializer());
-      var oauthRequest = service.Tokeninfo();
-      oauthRequest.AccessToken = request.IdToken;
-
-      var info = oauthRequest.Execute();
-
-      // Register the authenticator and construct the Plus service
-      // for performing API calls on behalf of the user.
-      var credential = new UserCredential(flow, "me", token);
-      var success = await credential.RefreshTokenAsync(CancellationToken.None);
-      token = credential.Token;
-
-      var plusService = new PlusService(
-        new Google.Apis.Services.BaseClientService.Initializer {
-          ApplicationName = "DLVoter",
-          HttpClientInitializer = credential
-        });
-
-      var me = await plusService.People.Get("me").ExecuteAsync();
+      var gResponse = JsonConvert.DeserializeObject<GoogleUserResponse>(responseJson);
 
       var user = new User {
-        FirstName = me.Name.GivenName,
-        LastName = me.Name.FamilyName,
-        ExternalCorrelationId = new ExternalCorrelationId {Value = info.UserId},
-        Type = UserType.GooglePlus,
-        Environment = {["GoogleToken"] = token}
+        FirstName = gResponse.Given_name,
+        LastName = gResponse.Family_name,
+        ExternalCorrelationId = new ExternalCorrelationId {Value = gResponse.Id},
+        Type = UserType.GooglePlus
       };
 
       request.SecurityContext.SetAuthenticatedUser(user);
-
       return true;
+    }
+
+    public class GoogleUserResponse {
+      public string Id { get; set; }
+      public string Given_name { get; set; }
+      public string Family_name { get; set; }
     }
   }
 }

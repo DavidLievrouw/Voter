@@ -10,13 +10,13 @@ namespace DavidLievrouw.Voter.Api.Users {
   public partial class UsersModuleTests {
     public class ActivateGooglePlusUser : UsersModuleTests {
       string _validPath;
-      string _validIdToken;
+      string _validAccessToken;
 
       [SetUp]
       public override void SetUp() {
         base.SetUp();
         _bootstrapper.AuthenticatedUser = _authenticatedUser;
-        _validIdToken = "JDoe";
+        _validAccessToken = "JDoe";
         _validPath = "api/user/activate/googleplus";
       }
 
@@ -40,7 +40,7 @@ namespace DavidLievrouw.Voter.Api.Users {
         Post();
 
         var expected = new ActivateGooglePlusUserRequest {
-          IdToken = "JDoe",
+          AccessToken = "JDoe",
           SecurityContext = securityContext
         };
         interceptedRequest.ShouldBeEquivalentTo(expected);
@@ -60,7 +60,7 @@ namespace DavidLievrouw.Voter.Api.Users {
 
       BrowserResponse Post(string body = null) {
         return _browser.Post(_validPath,
-          with => { with.Body(body ?? _validIdToken, "application/octet-stream; charset=utf-8"); });
+          with => { with.Body(body ?? _validAccessToken, "application/octet-stream; charset=utf-8"); });
       }
     }
   }

@@ -2,7 +2,7 @@
 
 namespace DavidLievrouw.Voter.Api.Users.Models {
   public class ActivateGooglePlusUserRequest {
-    public string IdToken { get; set; }
+    public string AccessToken { get; set; }
     public ISecurityContext SecurityContext { get; set; }
   }
 }

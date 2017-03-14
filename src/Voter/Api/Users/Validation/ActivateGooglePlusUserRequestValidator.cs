@@ -5,7 +5,7 @@ using FluentValidation;
 namespace DavidLievrouw.Voter.Api.Users.Validation {
   public class ActivateGooglePlusUserRequestValidator : NullAllowableValidator<ActivateGooglePlusUserRequest> {
     public ActivateGooglePlusUserRequestValidator() {
-      RuleFor(req => req.IdToken)
+      RuleFor(req => req.AccessToken)
         .NotNull()
         .NotEmpty()
         .WithMessage("A valid access token should be specified.");
