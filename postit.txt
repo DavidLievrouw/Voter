@@ -1,0 +1,15 @@
+User api model adapter
+Handler unit tests
+Extensions unit tests
+Logout and session abandon
+Secrets and Scopes in config file
+
+Further implementation of DTO behavior (equality, operators,...)
+Load and save user to local db
+Disconnect button and update table
+Cookie-based sessions instead of aspnet session
+Bootstrapper.StaticContentPaths using reflection
+
+Separate directory for google stuff
+
+Use TypeScript and structure front-end better
