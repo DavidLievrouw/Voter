@@ -4,10 +4,16 @@
   <title>Voter dashboard</title>
 	<meta charset="utf-8" />
   <link rel="shortcut icon" type="image/png" href="~/static/vote64.png">
+  <script type="text/javascript" src="~/app/login/UrlService.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 </head>
 <body>
   <script type="text/javascript">
     window.applicationInfo = @Model.ApplicationInfo;
+    $(document).ready(function() {
+      $('#disconnect').click(disconnectServer);
+      $('#logout').click(logout);
+    });
   </script>
   <h1>Hello world!</h1>
   <h2>User is now signed in to the app</h2>
@@ -16,6 +22,35 @@
       document.write(window.applicationInfo.currentUser.firstName + ' ' + window.applicationInfo.currentUser.lastName + ' (' + window.applicationInfo.currentUser.uniqueId + ')');
     </script>
   </div>
+  <div><button id="logout">Log out</button></div>
+  <div><button id="disconnect">Disconnect your Google account from this app</button></div>
   <p>version __Automatic__File__Version__</p>
+
+  <script type="text/javascript">
+    function disconnectServer() {
+      var urlService = new UrlService(window.applicationInfo.urlInfo);
+      var absoluteUrl = urlService.getAbsoluteUrl('api/user/disconnect/googleplus');
+      $.ajax({
+        type: 'POST',
+        url: absoluteUrl,
+        async: false,
+        success: function() {
+          window.location.assign(urlService.getAbsoluteUrl('/'));
+        }
+      });
+    }
+    function logout() {
+      var urlService = new UrlService(window.applicationInfo.urlInfo);
+      var absoluteUrl = urlService.getAbsoluteUrl('api/user/logout');
+      $.ajax({
+        type: 'POST',
+        url: absoluteUrl,
+        async: false,
+        success: function() {
+          window.location.assign(urlService.getAbsoluteUrl('/'));
+        }
+      });
+    }
+  </script>
 </body>
 </html>

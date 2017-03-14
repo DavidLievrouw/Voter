@@ -19,18 +19,6 @@ var helper = (function () {
         });
       }
     },
-    disconnectServer: function () {
-      var urlService = new UrlService(window.applicationInfo.urlInfo);
-      var absoluteUrl = urlService.getAbsoluteUrl('api/user/disconnect/googleplus');
-      $.ajax({
-        type: 'POST',
-        url: absoluteUrl,
-        async: false,
-        success: function() {
-          window.location.assign(urlService.getAbsoluteUrl('/'));
-        }
-      });
-    },
     connectServer: function (code) {
       var urlService = new UrlService(window.applicationInfo.urlInfo);
       var absoluteUrl = urlService.getAbsoluteUrl('api/user/login/googleplus');

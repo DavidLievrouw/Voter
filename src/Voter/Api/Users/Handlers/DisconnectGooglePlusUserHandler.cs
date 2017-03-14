@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DavidLievrouw.Utils;
 using DavidLievrouw.Voter.Api.Users.Models;
 using DavidLievrouw.Voter.Domain.DTO;
-using Google.Apis.Auth.OAuth2.Responses;
 
 namespace DavidLievrouw.Voter.Api.Users.Handlers {
   public class DisconnectGooglePlusUserHandler : IHandler<DisconnectGooglePlusUserRequest, bool> {
