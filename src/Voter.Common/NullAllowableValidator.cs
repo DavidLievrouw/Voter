@@ -4,16 +4,16 @@ using FluentValidation.Results;
 namespace DavidLievrouw.Voter.Common {
   public abstract class NullAllowableValidator<T> : AbstractValidator<T> {
     protected bool IsNullAllowed { get; set; }
-    
-    public override ValidationResult Validate(T instance) {
+
+    public override ValidationResult Validate(ValidationContext<T> context) {
       if (IsNullAllowed) {
-        return instance == null
+        return context.InstanceToValidate == null
           ? new ValidationResult()
-          : base.Validate(instance);
+          : base.Validate(context);
       } else {
-        return instance == null
-          ? new ValidationResult(new[] { new ValidationFailure(typeof(T).Name, typeof(T).Name + " instance cannot be null.") })
-          : base.Validate(instance);
+        return context.InstanceToValidate == null
+          ? new ValidationResult(new[] {new ValidationFailure(typeof(T).Name, typeof(T).Name + " instance cannot be null.")})
+          : base.Validate(context);
       }
     }
   }
