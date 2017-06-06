@@ -44,9 +44,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="DavidLievrouw.Utils, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DavidLievrouw.Utils.4.0.0\lib\net462\DavidLievrouw.Utils.dll</HintPath>
@@ -236,7 +235,9 @@
     <Content Include="App\Login\UrlService.js" />
     <Content Include="ConnectionStrings.config" />
     <Content Include="App\Dashboard\dashboard.sshtml" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\DLVoter - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\DLVoter - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
