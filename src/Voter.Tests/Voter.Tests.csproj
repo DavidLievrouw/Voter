@@ -118,6 +118,10 @@
     <Compile Include="App\Login\Handlers\LoginViewModelHandlerTests.cs" />
     <Compile Include="App\Login\Validation\NancyContextValidatorTests.cs" />
     <Compile Include="Composition\HttpRequestPhysicalRootPathResolverTests.cs" />
+    <Compile Include="Data\WebRequestSender\HttpClientFactoryTests.cs" />
+    <Compile Include="Data\WebRequestSender\HttpRequestMessageBuilderTests.cs" />
+    <Compile Include="Data\WebRequestSender\RequestSenderTests.cs" />
+    <Compile Include="Data\WebRequestSender\WebRequestSenderTests.cs" />
     <Compile Include="LightweightBootstrapper.cs" />
     <Compile Include="PassThroughDeciderTests.cs" />
     <Compile Include="WebConfigLoaderForUnitTests.cs" />
