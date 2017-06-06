@@ -13,7 +13,7 @@
   
   <Target Name="Build">
     <MSBuild Projects="$(SourceDirectory)\Voter\Voter.csproj"
-	         Targets="Package"
+	         Targets="Build"
 			 StopOnFirstFailure="true"
 			 BuildInParallel="true"
 			 Properties="Configuration=$(Configuration);VisualStudioVersion=$(VisualStudioVersion);OutputPath=$(BuildOutputDirectory);AutoParameterizationWebConfigConnectionStrings=False;" />
