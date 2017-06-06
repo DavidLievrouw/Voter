@@ -72,16 +72,16 @@
     <Folder Include="Create\Types" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Create\Schemas\eventstore.sql" />
-    <Build Include="Create\Schemas\security.sql" />
-    <Build Include="Create\Tables\dbo.Version.sql" />
+    <None Include="Create\Schemas\eventstore.sql" />
+    <None Include="Create\Schemas\security.sql" />
+    <None Include="Create\Tables\dbo.Version.sql" />
     <None Include="Create\Data\InitialLoad.sql" />
-    <Build Include="Create\Types\security.T_User.sql" />
+    <None Include="Create\Types\security.T_User.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Create\Tables\eventstore.EventStream.sql" />
+    <None Include="Create\Tables\eventstore.EventStream.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Create\Tables\security.User.sql" />
+    <None Include="Create\Tables\security.User.sql" />
   </ItemGroup>
 </Project>
