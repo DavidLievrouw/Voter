@@ -6,8 +6,8 @@
     <SourceDirectory>$(RootPath)\src</SourceDirectory>
     <BuildDirectory>$(RootPath)\build</BuildDirectory>
     <BuildOutputDirectory>$(BuildDirectory)\build-output</BuildOutputDirectory>
-    <MSBuildCommunityTasksDirectory>$(PackagesDirectory)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksDirectory>
-    <ExtensionTasksDirectory>$(PackagesDirectory)\MSBuild.Extension.Pack.1.8.0\build\net40\</ExtensionTasksDirectory>
+    <MSBuildCommunityTasksDirectory>$(PackagesDirectory)\MSBuildTasks.1.5.0.235\tools</MSBuildCommunityTasksDirectory>
+    <ExtensionTasksDirectory>$(PackagesDirectory)\MSBuild.Extension.Pack.1.9.0\build\net40\</ExtensionTasksDirectory>
 	<ProductName Condition="'$(ProductName)'==''">Voter</ProductName>
     <BuildConfiguration Condition="'$(BuildConfiguration)'==''">Release</BuildConfiguration>
   </PropertyGroup>

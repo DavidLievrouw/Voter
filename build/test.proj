@@ -6,7 +6,7 @@
 	<Configuration Condition="'$(Configuration)'==''">Release</Configuration>
     <ResultsOutputPath>$(MSBuildProjectDirectory)\log</ResultsOutputPath>
     <PackagesPath>$(MSBuildProjectDirectory)\packages</PackagesPath>
-    <MSBuildCommunityTasksPath>$(PackagesPath)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
+    <MSBuildCommunityTasksPath>$(PackagesPath)\MSBuildTasks.1.5.0.235\tools</MSBuildCommunityTasksPath>
 	<NUnitPath>$(PackagesPath)\NUnit.ConsoleRunner.3.6.1\tools</NUnitPath>
   </PropertyGroup>
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>

@@ -8,7 +8,7 @@
 	<BuildOutputDirectory Condition="'$(BuildOutputDirectory)'==''">$(BuildDirectory)\build-output</BuildOutputDirectory>
 	<WebAppBuildOutputDirectory>$(BuildOutputDirectory)\WebApp\_PublishedWebsites\Voter</WebAppBuildOutputDirectory>
 	<WebConfigPath>$(DeployTargetDirectory)\Web.config</WebConfigPath>
-    <ExtensionTasksDirectory>$(PackagesDirectory)\MSBuild.Extension.Pack.1.8.0\build\net40</ExtensionTasksDirectory>
+    <ExtensionTasksDirectory>$(PackagesDirectory)\MSBuild.Extension.Pack.1.9.0\build\net40</ExtensionTasksDirectory>
   </PropertyGroup>
   <Import Project="$(ExtensionTasksDirectory)\MSBuild.Extension.Pack.targets"/>
 

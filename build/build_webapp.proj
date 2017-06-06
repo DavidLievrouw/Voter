@@ -6,8 +6,8 @@
     <SourceDirectory>$(RootPath)\src</SourceDirectory>	
 	<BuildConfiguration Condition="'$(BuildConfiguration)'==''">Release</BuildConfiguration>
 	<BuildOutputDirectory Condition="'$(BuildOutputDirectory)'==''">$(SourceDirectory)\Voter\obj\$(Configuration)\Package\PackageTmp</BuildOutputDirectory>
-	<VisualStudioVersion Condition="'$(VisualStudioVersion)'==''">14.0</VisualStudioVersion>
-    <MSBuildCommunityTasksDirectory>$(PackagesDirectory)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksDirectory>
+	<VisualStudioVersion Condition="'$(VisualStudioVersion)'==''">15.0</VisualStudioVersion>
+    <MSBuildCommunityTasksDirectory>$(PackagesDirectory)\MSBuildTasks.1.5.0.235\tools</MSBuildCommunityTasksDirectory>
   </PropertyGroup>
   <Import Project="$(MSBuildCommunityTasksDirectory)\MSBuild.Community.Tasks.targets"/>
   
