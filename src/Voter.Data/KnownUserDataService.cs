@@ -44,8 +44,7 @@ USING @AddedOrUpdatedUsers AS [SOURCE]
 ON ([TARGET].[UniqueId] = [SOURCE].[UniqueId] OR ([TARGET].[Type] = [SOURCE].[Type] AND [TARGET].[ExternalCorrelationId] IS NOT NULL AND [TARGET].[ExternalCorrelationId] = [SOURCE].[ExternalCorrelationId]))
 WHEN MATCHED THEN
   UPDATE 
-  SET [UniqueId] = [SOURCE].[UniqueId]
-      ,[Login] = [SOURCE].[Login]
+  SET [Login] = [SOURCE].[Login]
       ,[Password] = [SOURCE].[Password]
       ,[Salt] = [SOURCE].[Salt]
       ,[FirstName] = [SOURCE].[FirstName]
@@ -76,7 +75,7 @@ WHEN NOT MATCHED BY TARGET THEN
       ,[SOURCE].[ExternalCorrelationId]);")
         .WithCommandType(CommandType.Text)
         .WithParameters(new {
-          AddedOrUpdatedReferrals = new[] {knownUser}.AsTableValuedParameter("security.T_User",
+          AddedOrUpdatedUsers = new[] {knownUser}.AsTableValuedParameter("security.T_User",
             new[] {
               "UniqueId",
               "Login",

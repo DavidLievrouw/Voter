@@ -9,3 +9,7 @@
   [Type] NCHAR(1) NOT NULL, 
   [ExternalCorrelationId] NVARCHAR(50) NULL
 );
+GO
+
+GRANT EXECUTE ON TYPE::[security].[T_User] TO [VoterApp];
+GO
