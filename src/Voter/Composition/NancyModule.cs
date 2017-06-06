@@ -15,6 +15,11 @@ namespace DavidLievrouw.Voter.Composition {
 
       var nancyAssembly = typeof(AppModule).Assembly;
 
+      // Register adapters
+      builder.RegisterAssemblyTypes(nancyAssembly)
+             .AsClosedTypesOf(typeof(IAdapter<,>))
+             .SingleInstance();
+      
       // Register application general info providers
       builder.RegisterType<ApplicationInfoProvider>()
              .AsImplementedInterfaces()

@@ -19,6 +19,7 @@ namespace DavidLievrouw.Voter.Composition {
       builder.RegisterModule<SecurityModule>();
       builder.RegisterModule<NancyModule>();
       builder.RegisterModule(new DataModule(appSettingsReader));
+      builder.RegisterModule<DomainModule>();
 
       return builder.Build();
     }

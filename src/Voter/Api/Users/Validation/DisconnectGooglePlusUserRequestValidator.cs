@@ -9,7 +9,7 @@ namespace DavidLievrouw.Voter.Api.Users.Validation {
       RuleFor(req => req.SecurityContext)
         .NotNull()
         .WithMessage("A valid security context should be specified.")
-        .Must(ctx => ctx.GetAuthenticatedUser()?.Type == UserType.GooglePlus)
+        .Must(ctx => ctx?.GetAuthenticatedUser()?.Type == UserType.GooglePlus)
         .WithMessage("Only an external user can be disconnected from this app.");
     }
   }

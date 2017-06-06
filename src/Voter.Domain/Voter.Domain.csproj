@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DavidLievrouw.Utils, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DavidLievrouw.Utils.4.0.0\lib\net462\DavidLievrouw.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,7 +52,10 @@
     <Compile Include="DTO\Password.cs" />
     <Compile Include="DTO\OAuthToken.cs" />
     <Compile Include="DTO\User.cs" />
+    <Compile Include="DTO\Adapters\UserAdapter.cs" />
     <Compile Include="DTO\UserType.cs" />
+    <Compile Include="IUserService.cs" />
+    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Voter.Common\Voter.Common.csproj">
@@ -60,6 +66,9 @@
       <Project>{4d55d92e-b5c8-4fc4-8ef1-fc89a6aab758}</Project>
       <Name>Voter.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

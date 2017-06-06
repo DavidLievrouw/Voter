@@ -54,7 +54,9 @@
     </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="IJsonSerializer.cs" />
     <Compile Include="NullAllowableValidator.cs" />
+    <Compile Include="UnclosableStreamWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

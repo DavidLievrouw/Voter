@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using Nancy;
-using Nancy.IO;
+using DavidLievrouw.Voter.Common;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
-namespace DavidLievrouw.Voter.Configuration {
-  public sealed class CustomJsonSerializer : JsonSerializer, ICustomJsonSerializer, ISerializer {
-    public CustomJsonSerializer() {
-      ContractResolver = new CamelCasePropertyNamesContractResolver();
-      ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-    }
-
+namespace DavidLievrouw.Voter.Data {
+  public sealed class GoogleJsonSerializer : JsonSerializer, IJsonSerializer {
     public string Serialize(object model) {
       using (var outputStream = new MemoryStream()) {
         Serialize(model, outputStream);
@@ -47,9 +40,7 @@ namespace DavidLievrouw.Voter.Configuration {
     public void Serialize<TModel>(string contentType, TModel model, Stream outputStream) {
       if (contentType == null) throw new ArgumentNullException(nameof(contentType));
       if (outputStream == null) throw new ArgumentNullException(nameof(outputStream));
-      if (!CanSerialize(contentType))
-        throw new SerializationException($"Content type '{contentType}' is not supported by this {GetType().Name}.");
-
+      if (!CanSerialize(contentType)) throw new SerializationException($"Content type '{contentType}' is not supported by this {GetType().Name}.");
       Serialize(model, outputStream);
     }
 

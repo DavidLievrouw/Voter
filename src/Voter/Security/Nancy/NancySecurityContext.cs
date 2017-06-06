@@ -11,12 +11,9 @@ namespace DavidLievrouw.Voter.Security.Nancy {
     readonly IVoterIdentityFactory _voterIdentityFactory;
 
     public NancySecurityContext(NancyContext nancyContext, INancySessionFromNancyContextResolver nancySessionFromNancyContextResolver, IVoterIdentityFactory voterIdentityFactory) {
-      if (nancyContext == null) throw new ArgumentNullException(nameof(nancyContext));
-      if (nancySessionFromNancyContextResolver == null) throw new ArgumentNullException(nameof(nancySessionFromNancyContextResolver));
-      if (voterIdentityFactory == null) throw new ArgumentNullException(nameof(voterIdentityFactory));
-      _nancyContext = nancyContext;
-      _nancySessionFromNancyContextResolver = nancySessionFromNancyContextResolver;
-      _voterIdentityFactory = voterIdentityFactory;
+      _nancyContext = nancyContext ?? throw new ArgumentNullException(nameof(nancyContext));
+      _nancySessionFromNancyContextResolver = nancySessionFromNancyContextResolver ?? throw new ArgumentNullException(nameof(nancySessionFromNancyContextResolver));
+      _voterIdentityFactory = voterIdentityFactory ?? throw new ArgumentNullException(nameof(voterIdentityFactory));
     }
 
     public void SetAuthenticatedUser(User user) {
