@@ -1,4 +1,3 @@
-User api model adapter
 Handler unit tests
 Extensions unit tests
 Logout and session abandon
