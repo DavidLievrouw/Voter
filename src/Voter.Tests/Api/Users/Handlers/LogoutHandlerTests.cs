@@ -14,22 +14,28 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
       _sut = new LogoutHandler();
     }
 
-    [Test]
-    public void ConstructorTests() {
-      Assert.That(_sut.NoDependenciesAreOptional());
+    [TestFixture]
+    public class Construction : LogoutHandlerTests {
+      [Test]
+      public void ConstructorTests() {
+        Assert.That(_sut.NoDependenciesAreOptional());
+      }
     }
 
-    [Test]
-    public void DelegatesControlToAuthenticatedUserApplyer() {
-      var securityContext = A.Fake<ISecurityContext>();
-      var command = new LogoutRequest {
-        SecurityContext = securityContext
-      };
+    [TestFixture]
+    public class Handle : LogoutHandlerTests {
+      [Test]
+      public void DelegatesControlToAuthenticatedUserApplyer() {
+        var securityContext = A.Fake<ISecurityContext>();
+        var command = new LogoutRequest {
+          SecurityContext = securityContext
+        };
 
-      _sut.Handle(command).Wait();
+        _sut.Handle(command).Wait();
 
-      A.CallTo(() => securityContext.SetAuthenticatedUser(null))
-       .MustHaveHappened();
+        A.CallTo(() => securityContext.SetAuthenticatedUser(null))
+         .MustHaveHappened();
+      }
     }
   }
 }
