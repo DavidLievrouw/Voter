@@ -69,12 +69,14 @@
     <Folder Include="Create\Data" />
     <Folder Include="Update" />
     <Folder Include="Update\v0002" />
+    <Folder Include="Create\Types" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Create\Schemas\eventstore.sql" />
     <Build Include="Create\Schemas\security.sql" />
     <Build Include="Create\Tables\dbo.Version.sql" />
     <None Include="Create\Data\InitialLoad.sql" />
+    <Build Include="Create\Types\security.T_User.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Create\Tables\eventstore.EventStream.sql" />

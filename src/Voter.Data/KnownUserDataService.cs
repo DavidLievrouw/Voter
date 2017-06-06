@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using DavidLievrouw.Voter.Data.Dapper;
@@ -31,6 +32,65 @@ namespace DavidLievrouw.Voter.Data {
           Type = type
         })
         .ExecuteAsync<KnownUserRecord>();
+    }
+
+    public async Task AddOrUpdateKnownUser(KnownUserRecord knownUser) {
+      if (knownUser == null) throw new ArgumentNullException(nameof(knownUser));
+
+      await _queryExecutor
+        .NewQuery(@"
+MERGE [security].[User] AS [TARGET]
+USING @AddedOrUpdatedUsers AS [SOURCE]
+ON ([TARGET].[UniqueId] = [SOURCE].[UniqueId] OR ([TARGET].[Type] = [SOURCE].[Type] AND [TARGET].[ExternalCorrelationId] IS NOT NULL AND [TARGET].[ExternalCorrelationId] = [SOURCE].[ExternalCorrelationId]))
+WHEN MATCHED THEN
+  UPDATE 
+  SET [UniqueId] = [SOURCE].[UniqueId]
+      ,[Login] = [SOURCE].[Login]
+      ,[Password] = [SOURCE].[Password]
+      ,[Salt] = [SOURCE].[Salt]
+      ,[FirstName] = [SOURCE].[FirstName]
+      ,[LastName] = [SOURCE].[LastName]
+      ,[LastNamePrefix] = [SOURCE].[LastNamePrefix]
+      ,[Type] = [SOURCE].[Type]
+      ,[ExternalCorrelationId] = [SOURCE].[ExternalCorrelationId]
+WHEN NOT MATCHED BY TARGET THEN 
+  INSERT
+      ([UniqueId]
+      ,[Login]
+      ,[Password]
+      ,[Salt]
+      ,[FirstName]
+      ,[LastName]
+      ,[LastNamePrefix]
+      ,[Type]
+      ,[ExternalCorrelationId])
+  VALUES
+      ([SOURCE].[UniqueId]
+      ,[SOURCE].[Login]
+      ,[SOURCE].[Password]
+      ,[SOURCE].[Salt]
+      ,[SOURCE].[FirstName]
+      ,[SOURCE].[LastName]
+      ,[SOURCE].[LastNamePrefix]
+      ,[SOURCE].[Type]
+      ,[SOURCE].[ExternalCorrelationId]);")
+        .WithCommandType(CommandType.Text)
+        .WithParameters(new {
+          AddedOrUpdatedReferrals = new[] {knownUser}.AsTableValuedParameter("security.T_User",
+            new[] {
+              "UniqueId",
+              "Login",
+              "Password",
+              "Salt",
+              "FirstName",
+              "LastName",
+              "LastNamePrefix",
+              "Type",
+              "ExternalCorrelationId"
+            })
+        })
+        .ExecuteAsync()
+        .ConfigureAwait(false);
     }
   }
 }

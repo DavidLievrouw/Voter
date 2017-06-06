@@ -8,10 +8,18 @@ using DavidLievrouw.Voter.Data.WebRequestSender;
 
 namespace DavidLievrouw.Voter.Data {
   public class GoogleUserDataService : IGoogleUserDataService {
+    readonly IKnownUserDataService _knownUserDataService;
+    readonly IKnownUserFromGoogleUserBuilder _knownUserFromGoogleUserBuilder;
     readonly IJsonSerializer _jsonSerializer;
     readonly IWebRequestSender _webRequestSender;
 
-    public GoogleUserDataService(IWebRequestSender webRequestSender, IJsonSerializer jsonSerializer) {
+    public GoogleUserDataService(
+      IWebRequestSender webRequestSender, 
+      IJsonSerializer jsonSerializer,
+      IKnownUserFromGoogleUserBuilder knownUserFromGoogleUserBuilder,
+      IKnownUserDataService knownUserDataService) {
+      _knownUserDataService = knownUserDataService ?? throw new ArgumentNullException(nameof(knownUserDataService));
+      _knownUserFromGoogleUserBuilder = knownUserFromGoogleUserBuilder ?? throw new ArgumentNullException(nameof(knownUserFromGoogleUserBuilder));
       _webRequestSender = webRequestSender ?? throw new ArgumentNullException(nameof(webRequestSender));
       _jsonSerializer = jsonSerializer ?? throw new ArgumentNullException(nameof(jsonSerializer));
     }
@@ -29,7 +37,11 @@ namespace DavidLievrouw.Voter.Data {
           ? _jsonSerializer.Deserialize<GoogleUserDataRecord>(null)
           : _jsonSerializer.Deserialize<GoogleUserDataRecord>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         if (string.IsNullOrEmpty(googleUser?.Id)) throw new InvalidOperationException("A valid Google user could not be determined.");
-        // ToDo: Add or update local user in database
+
+        // CQS violation here: keep track of Google user in the local storage
+        var knownUserDataRecord = _knownUserFromGoogleUserBuilder.BuildKnownUser(googleUser);
+        await _knownUserDataService.AddOrUpdateKnownUser(knownUserDataRecord);
+
         return googleUser.Id;
       } catch (Exception ex) {
         throw new SecurityException("Invalid access token.", ex);

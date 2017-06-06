@@ -7,5 +7,6 @@ namespace DavidLievrouw.Voter.Data {
   public interface IKnownUserDataService {
     Task<KnownUserRecord> GetKnownUserById(Guid uniqueId);
     Task<IEnumerable<KnownUserRecord>> FindKnownUserByCorrelationId(char type, string externalCorrelationId);
+    Task AddOrUpdateKnownUser(KnownUserRecord knownUser);
   }
 }

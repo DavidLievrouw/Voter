@@ -25,7 +25,14 @@ namespace DavidLievrouw.Voter.Composition {
       builder.RegisterType<KnownUserDataService>()
              .AsImplementedInterfaces()
              .SingleInstance();
-      builder.Register(ctx => new GoogleUserDataService(ctx.Resolve<IWebRequestSender>(), new GoogleJsonSerializer()))
+      builder.RegisterType<KnownUserFromGoogleUserBuilder>()
+             .AsImplementedInterfaces()
+             .SingleInstance();
+      builder.Register(ctx => new GoogleUserDataService(
+               ctx.Resolve<IWebRequestSender>(),
+               new GoogleJsonSerializer(),
+               ctx.Resolve<IKnownUserFromGoogleUserBuilder>(),
+               ctx.Resolve<IKnownUserDataService>()))
              .AsImplementedInterfaces()
              .SingleInstance();
 

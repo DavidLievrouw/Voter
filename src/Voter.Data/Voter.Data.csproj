@@ -69,6 +69,7 @@
     <Compile Include="..\InternalsVisibleTo.cs">
       <Link>InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="EnumerableExtensions.AsTableValuedParameter.cs" />
     <Compile Include="GoogleJsonSerializer.cs" />
     <Compile Include="Dapper\DbConnectionFactoryByConnectionString.cs" />
     <Compile Include="Dapper\IDbConnectionFactory.cs" />
@@ -76,7 +77,9 @@
     <Compile Include="Dapper\QueryExecutor.cs" />
     <Compile Include="GoogleUserDataService.cs" />
     <Compile Include="IGoogleUserDataService.cs" />
+    <Compile Include="IKnownUserFromGoogleUserBuilder.cs" />
     <Compile Include="IKnownUserDataService.cs" />
+    <Compile Include="KnownUserFromGoogleUserBuilder.cs" />
     <Compile Include="Records\GoogleUserDataRecord.cs" />
     <Compile Include="Records\KnownUserRecord.cs" />
     <Compile Include="KnownUserDataService.cs" />
@@ -100,6 +103,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

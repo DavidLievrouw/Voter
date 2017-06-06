@@ -18,13 +18,17 @@ namespace DavidLievrouw.Voter.Data {
   public class GoogleUserDataServiceTests {
     IJsonSerializer _jsonSerializer;
     IWebRequestSender _webRequestSender;
+    IKnownUserDataService _knownUserDataService;
+    IKnownUserFromGoogleUserBuilder _knownUserFromGoogleUserBuilder;
     GoogleUserDataService _sut;
 
     [SetUp]
     public virtual void SetUp() {
       _jsonSerializer = _jsonSerializer.Fake();
       _webRequestSender = _webRequestSender.Fake();
-      _sut = new GoogleUserDataService(_webRequestSender, _jsonSerializer);
+      _knownUserDataService = _knownUserDataService.Fake();
+      _knownUserFromGoogleUserBuilder = _knownUserFromGoogleUserBuilder.Fake();
+      _sut = new GoogleUserDataService(_webRequestSender, _jsonSerializer, _knownUserFromGoogleUserBuilder, _knownUserDataService);
     }
 
     [TestFixture]
@@ -53,7 +57,7 @@ namespace DavidLievrouw.Voter.Data {
 
       [Test]
       public async Task SendsToTheCorrectGoogleApiUrl() {
-        var googleUser = new GoogleUserDataRecord { Id = "CorrelationId123" };
+        var googleUser = new GoogleUserDataRecord {Id = "CorrelationId123"};
         A.CallTo(() => _jsonSerializer.Deserialize<GoogleUserDataRecord>(A<string>._)).Returns(googleUser);
         var expectedUri = new Uri("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + _accessToken, UriKind.Absolute);
         await _sut.ActivateGooglePlusUser(_accessToken);
@@ -123,6 +127,28 @@ namespace DavidLievrouw.Voter.Data {
         var actual = await _sut.ActivateGooglePlusUser(_accessToken);
 
         actual.Should().Be(googleUser.Id);
+      }
+
+      [Test]
+      public async Task UponSuccess_KeepsTrackOfKnownUser() {
+        var requestBuilder = A.Fake<IHttpRequestMessageBuilder>();
+        A.CallTo(() => _webRequestSender.NewRequest(A<HttpMethod>._, A<Uri>._)).Returns(requestBuilder);
+        var httpRequestMessage = new HttpRequestMessage();
+        A.CallTo(() => requestBuilder.Build()).Returns(httpRequestMessage);
+        var googleUserJson = "{I am the user}";
+        var httpResponseMessage = new HttpResponseMessage {
+          Content = new StringContent(googleUserJson)
+        };
+        A.CallTo(() => _webRequestSender.SendRequestAsync(httpRequestMessage)).Returns(httpResponseMessage);
+        var googleUser = new GoogleUserDataRecord {Id = "CorrelationId123", Given_name = "John", Family_name = "Snow"};
+        A.CallTo(() => _jsonSerializer.Deserialize<GoogleUserDataRecord>(googleUserJson)).Returns(googleUser);
+
+        var knownUser = new KnownUserRecord {UniqueId = Guid.NewGuid(), ExternalCorrelationId = googleUser.Id, FirstName = googleUser.Given_name, LastName = googleUser.Family_name};
+        A.CallTo(() => _knownUserFromGoogleUserBuilder.BuildKnownUser(googleUser)).Returns(knownUser);
+
+        await _sut.ActivateGooglePlusUser(_accessToken);
+
+        A.CallTo(() => _knownUserDataService.AddOrUpdateKnownUser(knownUser)).MustHaveHappened();
       }
     }
   }

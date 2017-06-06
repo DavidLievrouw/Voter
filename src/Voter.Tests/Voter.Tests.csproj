@@ -115,6 +115,7 @@
     </Compile>
     <Compile Include="Api\Users\Handlers\ActivateGooglePlusUserHandlerTests.cs" />
     <Compile Include="Data\KnownUserDataServiceTests.cs" />
+    <Compile Include="Data\KnownUserFromGoogleUserBuilderTests.cs" />
     <Compile Include="Domain\DTO\Adapters\UserAdapterTests.cs" />
     <Compile Include="Domain\UserServiceTests.cs" />
     <Compile Include="Security\FakeSecurityContext.cs" />
