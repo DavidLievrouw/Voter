@@ -1,3 +1,5 @@
+https://stackoverflow.com/questions/15484533/preventing-automatic-sign-in-when-using-google-sign-in
+
 Handler unit tests
 Extensions unit tests
 Logout and session abandon
@@ -12,3 +14,7 @@ Bootstrapper.StaticContentPaths using reflection
 Separate directory for google stuff
 
 Use TypeScript and structure front-end better
+
+Finish up anti session-hijacking
+
+Push events to event store: Log in, log out, Failed log in
