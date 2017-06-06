@@ -1,4 +1,7 @@
-﻿using DavidLievrouw.Utils.ForTesting.FakeItEasy;
+﻿using System.Threading.Tasks;
+using DavidLievrouw.Utils;
+using DavidLievrouw.Utils.ForTesting.FakeItEasy;
+using DavidLievrouw.Utils.ForTesting.FluentAssertions;
 using DavidLievrouw.Voter.Api.Users.Models;
 using DavidLievrouw.Voter.Domain.DTO;
 using DavidLievrouw.Voter.Security;
@@ -10,38 +13,41 @@ namespace DavidLievrouw.Voter.Api.Users.Handlers {
   [TestFixture]
   public class GetCurrentUserHandlerTests {
     GetCurrentUserHandler _sut;
+    IAdapter<User, Api.Models.User> _userAdapter;
     ISecurityContext _securityContext;
 
     [SetUp]
     public void SetUp() {
-      _sut = new GetCurrentUserHandler();
+      _userAdapter = _userAdapter.Fake();
+      _sut = new GetCurrentUserHandler(_userAdapter);
       _securityContext = _securityContext.Fake();
     }
 
-    [Test]
-    public void GivenContextWithoutUser_ReturnsNull() {
-      ConfigureSecurityContext_ToReturn(null);
-      var request = new GetCurrentUserRequest {
-        SecurityContext = _securityContext
-      };
-
-      var actual = _sut.Handle(request).Result;
-
-      Assert.That(actual, Is.Null);
+    [TestFixture]
+    public class Construction : GetCurrentUserHandlerTests {
+      [Test]
+      public void HasExactlyOneConstructor_WithNoOptionalParameters() {
+        _sut.Should().HaveExactlyOneConstructorWithoutOptionalParameters();
+      }
     }
 
-    [Test]
-    public void GivenContextWithValidUser_ReturnsUser() {
-      var user = new User {Login = new Login {Value = "JohnD"}, LastName = "Doe" };
-      ConfigureSecurityContext_ToReturn(user);
-      var request = new GetCurrentUserRequest {
-        SecurityContext = _securityContext
-      };
+    [TestFixture]
+    public class Handle : GetCurrentUserHandlerTests {
+      [Test]
+      public async Task GivenContextWithUser_ReturnsAdaptedUser() {
+        var user = new User {Login = new Login {Value = "JohnD"}, LastName = "Doe"};
+        ConfigureSecurityContext_ToReturn(user);
+        var request = new GetCurrentUserRequest {
+          SecurityContext = _securityContext
+        };
 
-      var actual = _sut.Handle(request).Result;
+        var expected = new Api.Models.User { LastName = "Doe" };
+        A.CallTo(() => _userAdapter.Adapt(user)).Returns(expected);
 
-      var expected = new Api.Models.User { LastName = "Doe" };
-      actual.ShouldBeEquivalentTo(expected);
+        var actual = await _sut.Handle(request);
+
+        actual.ShouldBeEquivalentTo(expected);
+      }
     }
 
     void ConfigureSecurityContext_ToReturn(User user) {

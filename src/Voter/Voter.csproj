@@ -157,6 +157,7 @@
     <Compile Include="Api\Handlers\RequestValidationAwareHandler.cs" />
     <Compile Include="Api\Handlers\RequestValidationException.cs" />
     <Compile Include="Api\Users\Models\ActivateGooglePlusUserRequest.cs" />
+    <Compile Include="Api\Users\Models\Adapters\UserAdapter.cs" />
     <Compile Include="Api\Users\Models\LoginGooglePlusUserRequest.cs" />
     <Compile Include="Api\Users\Models\DisconnectGooglePlusUserRequest.cs" />
     <Compile Include="Api\Users\Models\LogoutRequest.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="App\Validation\NancyContextValidator.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Composition\AppSettingsReader.cs" />
+    <Compile Include="Composition\CommonModule.cs" />
     <Compile Include="Composition\HttpRuntimePhysicalRootPathResolver.cs" />
     <Compile Include="Composition\IAppSettingsReader.cs" />
     <Compile Include="Composition\CompositionRoot.cs" />
